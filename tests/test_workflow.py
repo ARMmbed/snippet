@@ -12,7 +12,7 @@ from tests import test_parser as P
 class Test(unittest.TestCase):
     example_name = 'this snippet'
     text = ''.join([
-        'blah blah\n', P.start, example_name, P.newline, P.A, P.B, P.stop, '# rhubarb\n'
+        'blah blah\n', P.start, example_name, P.newline, P.A, P.B, P.C, P.stop, '# rhubarb\n'
     ])
 
     def setUp(self):
@@ -24,8 +24,6 @@ class Test(unittest.TestCase):
     def test_read(self):
         with open(self.tmp_fp, 'w') as fh:
             fh.write(self.text)
-
-        print(self.text)
 
         config = Config()
         config.stop_on_first_failure = True
@@ -41,17 +39,27 @@ class Test(unittest.TestCase):
             self.assertEqual([], failures)
 
         with self.subTest(part='one example extracted'):
-            self.assertEqual(len(examples), 1)
+            self.assertGreaterEqual(len(examples), 1)
 
         for k, v in examples.items():
             with self.subTest(part='example matches'):
                 self.assertEqual('\n'.join(v), P.sample_output)
-                self.assertEqual(k[-1], self.example_name)
+                self.assertIn(self.example_name, k[-1])
+
+
+class TestMultipleExtract(Test):
+    text = ''.join([
+        'blah blah\n', P.start, Test.example_name, P.newline, P.A, P.B, P.C, P.stop, '# rhubarb\n'
+    ])
+    text = text + '\n' + text.replace(Test.example_name, 'this snippet 2')
+
+    def test_read(self):
+        super().test_read()
 
 
 class TestDuplicateNames(Test):
     text = ''.join([
-        'blah blah\n', P.start, Test.example_name, P.newline, P.A, P.B, P.stop, '# rhubarb\n'
+        'blah blah\n', P.start, Test.example_name, P.newline, P.A, P.B, P.C, P.stop, '# rhubarb\n'
     ])
     text = text + '\n' + text
 

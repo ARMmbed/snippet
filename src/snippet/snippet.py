@@ -8,6 +8,7 @@ def extract_snippets(config: Config, lines, path):
     current_block = None
     current_strip = None
     capture = False
+    cloak = False
     examples = {}
 
     for line_num, line in enumerate(lines or []):
@@ -31,8 +32,21 @@ def extract_snippets(config: Config, lines, path):
             capture = False
             if not current_block:
                 examples.pop(current_key)
+            continue
 
-        if capture:
+        if config.uncloak_flag in line:
+            if not cloak:
+                raise exceptions.CloakMismatch(f'Already uncloaked at {current_key}')
+            cloak = False
+            continue
+
+        if capture and not cloak:
+            if config.cloak_flag in line:
+                if cloak:
+                    raise exceptions.CloakMismatch(f'Already cloaked at {current_key}')
+                cloak = True
+                continue
+
             # whilst capturing, append code lines to the current block
             if config.fail_on_dedent and any(line[:current_strip].split(' ')):
                 raise exceptions.ValidationFailure(f'Unexpected dedent whilst capturing {current_key}')
@@ -47,5 +61,8 @@ def extract_snippets(config: Config, lines, path):
 
     if capture:
         raise exceptions.StartEndMismatch(f'EOF reached whilst still capturing {current_key}')
+
+    if cloak:
+        raise exceptions.CloakMismatch(f'EOF reached whilst still cloaked {current_key}')
 
     return examples

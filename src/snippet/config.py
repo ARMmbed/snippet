@@ -1,4 +1,6 @@
 import logging
+import os
+
 import toml
 
 
@@ -17,8 +19,8 @@ class Config:
     end_flag = 'end of example'
 
     # Hidden block indicators
-    start_cloak_flag = 'cloak'
-    start_uncloak_flag = 'uncloak'
+    cloak_flag = 'cloak'
+    uncloak_flag = 'uncloak'
 
     # Validation and formatting logic
     replacements = {'self.': ''}  # straightforward replacements
@@ -30,7 +32,7 @@ class Config:
 
 def get_config(config_path=None, **options):
     new_options = {}
-    if config_path:
+    if config_path or os.environ.get('SNIPPET_CONFIG_PATH'):
         with open(config_path) as f:
             new_options.update(toml.load(f))
     new_options.update(options)

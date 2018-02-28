@@ -4,13 +4,14 @@ from snippet.config import Config
 from snippet import exceptions
 
 
-newline = '\n'
 start = f'# this is {Config.start_flag}: '
-A = """items = my_api().do_something()\n"""
-B = """for item in items:\n    print(item.name)\n"""
+newline = '\n'
+A = 'items = my_api().do_something()\n'
+B = 'for item in items:\n'
+C = '    print(item.name)\n'
 stop = f'# {Config.end_flag}\n'
-cloak = f'# {Config.start_cloak_flag}\n'
-uncloak = f'# {Config.start_uncloak_flag}\n'
+cloak = f'# {Config.cloak_flag}\n'
+uncloak = f'# {Config.uncloak_flag}\n'
 
 # however the output is combined, it should match this
 sample_output = """items = my_api().do_something()\nfor item in items:\n    print(item.name)"""
@@ -34,25 +35,30 @@ class Test(unittest.TestCase):
                 sequence
             )[0]
         )
+        # print('test sequence:\n', ''.join(sequence))
 
     def test_empty(self):
         self.assertEqual(self.go(Config(), [start, 'test', newline, stop]), [])
 
     def test_plain(self):
-        self.go_exact(Config(), [start, 'test', newline, A, B, stop])
+        self.go_exact(Config(), [start, 'test', newline, A, B, C, stop])
 
     def test_indent(self):
-        # left pad the sequence by two
-        sequence = [f'  {x}' for x in [start + 'test' + newline, A, B]]
+        # left pad the sequence by two, to check result is dedented to depth of start
+        sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, C]]
         sequence.append(stop)
         self.go_exact(
             Config(),
             sequence
         )
 
+    def test_trigger_phrase(self):
+        with self.assertRaises(exceptions.ValidationFailure):
+            self.go_exact(Config(), [start, 'test', newline, A, B, C, 'assert\n', stop])
+
     def test_dedent_code(self):
         with self.assertRaises(exceptions.ValidationFailure):
-            sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, stop]]
+            sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, C, stop]]
             sequence[-2] = sequence[-2].lstrip()
             self.go_exact(
                 Config(),
@@ -63,45 +69,45 @@ class Test(unittest.TestCase):
         with self.assertRaises(exceptions.StartEndMismatch):
             self.go_exact(
                 Config(),
-                [A, B, stop]
+                [A, B, C, stop]
             )
 
     def test_unfinished(self):
         with self.assertRaises(exceptions.StartEndMismatch):
             self.go_exact(
                 Config(),
-                [start, 'test', newline, A, B]
+                [start, 'test', newline, A, B, C]
             )
 
     def test_double_start(self):
         with self.assertRaises(exceptions.StartEndMismatch):
             self.go_exact(
                 Config(),
-                [start, 'test', newline, A, start, 'test again', newline, B, stop]
+                [start, 'test', newline, A, start, 'test again', newline, B, C, stop]
             )
 
     def test_double_stop(self):
         with self.assertRaises(exceptions.StartEndMismatch):
             self.go_exact(
                 Config(),
-                [start, 'test', newline, A, stop, B, stop]
+                [start, 'test', newline, A, stop, B, C, stop]
             )
 
     def test_prefix(self):
         self.go_exact(
             Config(),
-            ['some other stuff', start, 'test', newline, A, B, stop, 'other stuff']
+            ['some other stuff', start, 'test', newline, A, B, C, stop, 'other stuff']
         )
 
     def test_cloak(self):
         self.go_exact(
             Config(),
-            ['some other stuff', start, 'test', newline,
+            ['some other stuff\n', start, 'test', newline,
              A,
              cloak,
              'ignore this stuff\n',
              uncloak,
-             B,
+             B, C,
              stop, 'other stuff']
         )
 
@@ -109,14 +115,14 @@ class Test(unittest.TestCase):
         with self.assertRaises(exceptions.CloakMismatch):
             self.go_exact(
                 Config(),
-                ['some other stuff', start, 'test', newline, A, uncloak, B, stop, 'other stuff']
+                ['some other stuff', start, 'test', newline, A, uncloak, B, C, stop, 'other stuff']
             )
 
     def test_cloak_unfinished(self):
         with self.assertRaises(exceptions.CloakMismatch):
             self.go_exact(
                 Config(),
-                ['some other stuff', start, 'test', newline, A, cloak, B, stop, 'other stuff']
+                ['some other stuff', start, 'test', newline, A, cloak, B, C, stop, 'other stuff']
             )
 
     def test_multiple(self):
@@ -127,13 +133,13 @@ class Test(unittest.TestCase):
             cloak,
             'something to hide?',
             uncloak,
-            B,
+            B, C,
             stop,
             'other stuff',
             'more other stuff',
             start, ' test 2  ', newline,
             A,
-            B,
+            B, C,
             stop,
             'more stuff'
         ]

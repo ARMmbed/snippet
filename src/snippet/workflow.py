@@ -18,7 +18,7 @@ def run(config: Config):
         lines = wrap(config, failures, path, partial(
             file_wrangler.load_file_lines, path
         ))
-        print(lines)
+
         # extract snippets
         new_examples = wrap(config, failures, path, partial(
             extract_snippets, config, lines, path
