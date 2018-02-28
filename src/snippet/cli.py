@@ -1,4 +1,5 @@
 from snippet import snippet
+from snippet.config import get_config
 import argparse
 
 
@@ -11,8 +12,7 @@ def get_cli_opts():
 def run():
     parser = get_cli_opts()
     config_path = parser.parse_args().config
-    snippet.get_config(config_path)
-    snippet.run(config_path)
+    snippet.run(get_config(config_path))
 
 
 if __name__ == '__main__':

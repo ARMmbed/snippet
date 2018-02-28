@@ -1,49 +1,51 @@
-import glob
-import toml
-import pystache
+import traceback
+import logging
+
+from snippet.config import Config
+from snippet import file_wrangler
 
 
-def extract_examples(path, examples, replacements, red_flags):
-    with open(path, 'r') as fh:
-        lines = fh.readlines()
-
-    if not lines:
-        return
-
+def extract_examples(config: Config, lines, path):
+    """Finds examples!"""
     current_key = None
     current_block = None
     current_strip = None
-
     capture = False
+    examples = {}
+
     for line_num, line in enumerate(lines):
-        if start_flag in line:
+
+        if config.start_flag in line:
             # start capturing code from the next line
             example_name = line.rsplit(':')[-1].strip()
             current_key = (path, line_num, example_name)
-            current_block = examples.setdefault(current_key, [])
+            current_block = []
+            examples[current_key] = current_block
             current_strip = len(line) - len(line.lstrip())
             if capture:
                 raise Exception('Start/end example mismatch - already capturing at %s' % (current_key,))
             capture = True
             continue
-        if end_flag in line:
+
+        if config.end_flag in line:
             # stop capturing, and discard empty blocks
             if not capture:
                 raise Exception('Start/end example mismatch - not yet capturing at %s' % (current_key,))
             capture = False
             if not current_block:
                 examples.pop(current_key)
+
         if capture:
             # whilst capturing, append code lines to the current block
-            if any(line[:current_strip].split(' ')):
+            if config.fail_on_dedent and any(line[:current_strip].split(' ')):
                 raise Exception('Unexpected dedent whilst capturing %s' % (current_key,))
             code_line = line[current_strip:].rstrip()
-            for r_before, r_after in replacements.items():
+            for r_before, r_after in config.replacements.items():
                 code_line = code_line.replace(r_before, r_after)
-
-            for red_flag in red_flags:
-                if red_flag in code_line:
-                    raise Exception('Red flag %r at %s' % (red_flag, current_key))
+            for trigger in config.fail_on_contains:
+                if trigger in code_line:
+                    raise Exception('Unexpected phrase %r at %s' % (trigger, current_key))
+            # add this line of code to the example block
             current_block.append(code_line)
 
     if capture:
@@ -51,57 +53,52 @@ def extract_examples(path, examples, replacements, red_flags):
 
     return examples
 
-class Config:
-    # IO
-    input_glob = 'tests/example/*.py'
-    output_template = '```python\n# example: {{name}}{{code}}\n```'  # a mustache template for each file
-    output_append = False  # if the output file exists, append to it
-    output_dir = None
-
-    # Code block indicators
-    start_flag = 'an example'
-    end_flag = 'end of example'
-
-    # Hidden block indicators
-    start_cloak_flag = 'cloak'
-    start_uncloak_flag = 'uncloak'
-
-    # Validation and formatting logic
-    replacements = {'self.': ''}  # straightforward replacements
-    fail_on_contains = ['assert']  # fail if these strings are found in code blocks
-    auto_dedent = True  # keep code left-aligned with the start flag
-    fail_on_dedent = True  # fail if code is dedented before reaching the end flag
-
-
-def get_config(config_path=None, **options):
-    new_options = {}
-    if config_path:
-        with open(config_path) as f:
-            new_options.update(toml.load(f))
-    new_options.update(options)
-    config = Config()
-    for k, v in new_options:
-        setattr(config, k, v)
-    return config
-
 
 def run(config: Config):
+    if config.log_level:
+        logging.basicConfig(level=config.log_level)
 
-    path_pattern='tests/example/*.py')
-    paths_to_load = glob.glob(path_pattern)
     examples = {}
-    replacements = {'self.': ''}
-    red_flags = {'assert', 'fail'}
-
-    for path in paths_to_load:
-        if __file__ in path:
+    failures = []
+    for path in file_wrangler.find_files(config):
+        try:
+            lines = file_wrangler.load_file_lines(path)
+        except Exception as e:
+            if config.stop_on_first_failure:
+                raise
+            failures.append((path, traceback.format_exc()))
             continue
-        extract_examples(path, examples, replacements, red_flags)
+        try:
+            new_examples = extract_examples(config, lines, path)
+        except Exception as e:
+            if config.stop_on_first_failure:
+                raise
+            failures.append((path, traceback.format_exc()))
+            continue
 
-    for (path, line_num, example_name), code in examples.items():
-        print(5*'#', 'example:', example_name)
-        print('\n'.join(code))
-        print()
+        # store the new examples for analysis
+        examples.update(new_examples)
+
+    unique_example_names = dict()
+    for (path, line_num, example_name), code_lines in examples.items():
+        existing = unique_example_names.get(example_name)
+        if existing:
+            raise Exception('Example with duplicate name %s %s matches %s' % (path, line_num, existing))
+        else:
+            unique_example_names[example_name] = (path, line_num, example_name)
+
+    for (path, line_num, example_name), code_lines in examples.items():
+        example_block = '\n'.join(code_lines)
+        logging.info('example: %s', example_name)
+        logging.debug('example code: %s', example_block)
+
+        try:
+            file_wrangler.write_example(config, example_name, example_block)
+        except Exception as e:
+            if config.stop_on_first_failure:
+                raise
+            failures.append((path, traceback.format_exc()))
+            continue
 
 
 if __name__ == '__main__':
