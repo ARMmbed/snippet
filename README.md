@@ -1,0 +1,2 @@
+# snippet
+A snippet extractor
