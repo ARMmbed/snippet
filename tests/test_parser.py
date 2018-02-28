@@ -1,5 +1,5 @@
 import unittest
-from snippet.snippet import extract_examples
+from snippet.snippet import extract_snippets
 from snippet.config import Config
 
 
@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
     def go(self, config, sequence):
         # shorthand to get the code equivalent post-parsing
         text = ''.join(sequence)
-        result = extract_examples(config, text.splitlines(), None)
+        result = extract_snippets(config, text.splitlines(), None)
         return ['\n'.join(block) for k, block in result.items()]
 
     def go_exact(self, config, sequence):

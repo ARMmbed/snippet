@@ -23,4 +23,5 @@ def load_file_lines(path):
 
 
 def find_files(config: Config):
+    """Finds input file paths, according to the config"""
     return glob.glob(config.input_glob)

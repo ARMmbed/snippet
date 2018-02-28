@@ -1,0 +1,3 @@
+{
+  "tests/test_workflow.py::Test::test_read": true
+}

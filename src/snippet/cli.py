@@ -1,6 +1,6 @@
-from snippet import snippet
-from snippet.config import get_config
 import argparse
+
+import snippet
 
 
 def get_cli_opts():
@@ -9,11 +9,11 @@ def get_cli_opts():
     return parser
 
 
-def run():
+def run_from_cli():
     parser = get_cli_opts()
     config_path = parser.parse_args().config
-    snippet.run(get_config(config_path))
+    snippet.workflow.run(snippet.config.get_config(config_path))
 
 
 if __name__ == '__main__':
-    run()
+    run_from_cli()

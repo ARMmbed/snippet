@@ -1,3 +1,3 @@
-from snippet.cli import run
+from snippet.cli import run_from_cli
 
-snippet.run()
+run_from_cli()
