@@ -2,7 +2,8 @@ import tempfile
 import os
 import unittest
 
-from snippet.workflow import run
+from snippet import exceptions
+from snippet import workflow
 from snippet.config import Config
 
 from tests import test_parser as P
@@ -31,7 +32,7 @@ class Test(unittest.TestCase):
         config.input_glob = self.tmp_fp
         config.output_dir = self.tmpdir.name
 
-        examples, paths, failures = run(config)
+        examples, paths, failures = workflow.run(config)
 
         with self.subTest(part='found the file'):
             self.assertEqual([self.tmp_fp], paths)
@@ -55,5 +56,5 @@ class TestDuplicateNames(Test):
     text = text + '\n' + text
 
     def test_read(self):
-        with self.assertRaises(Exception):
+        with self.assertRaises(exceptions.DuplicateName):
             super().test_read()

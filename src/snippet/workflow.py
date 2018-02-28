@@ -5,6 +5,7 @@ from snippet import file_wrangler
 from snippet.config import Config
 from snippet.snippet import extract_snippets
 from snippet.wrapper import wrap
+from snippet import exceptions
 
 
 def run(config: Config):
@@ -30,7 +31,7 @@ def run(config: Config):
     for (path, line_num, example_name), code_lines in examples.items():
         existing = unique_example_names.get(example_name)
         if existing:
-            raise Exception('Example with duplicate name %s %s matches %s' % (path, line_num, existing))
+            raise exceptions.DuplicateName('Example with duplicate name %s %s matches %s' % (path, line_num, existing))
         else:
             unique_example_names[example_name] = (path, line_num, example_name)
 

@@ -1,4 +1,5 @@
 from snippet.config import Config
+from snippet import exceptions
 
 
 def extract_snippets(config: Config, lines, path):
@@ -19,14 +20,14 @@ def extract_snippets(config: Config, lines, path):
             examples[current_key] = current_block
             current_strip = len(line) - len(line.lstrip())
             if capture:
-                raise Exception('Start/end example mismatch - already capturing at %s' % (current_key,))
+                raise exceptions.StartEndMismatch(f'Already capturing at {current_key}')
             capture = True
             continue
 
         if config.end_flag in line:
             # stop capturing, and discard empty blocks
             if not capture:
-                raise Exception('Start/end example mismatch - not yet capturing at %s' % (current_key,))
+                raise exceptions.StartEndMismatch(f'Not yet capturing at {current_key}')
             capture = False
             if not current_block:
                 examples.pop(current_key)
@@ -34,17 +35,17 @@ def extract_snippets(config: Config, lines, path):
         if capture:
             # whilst capturing, append code lines to the current block
             if config.fail_on_dedent and any(line[:current_strip].split(' ')):
-                raise Exception('Unexpected dedent whilst capturing %s' % (current_key,))
+                raise exceptions.ValidationFailure(f'Unexpected dedent whilst capturing {current_key}')
             clean_line = line[current_strip:].rstrip()
             for r_before, r_after in config.replacements.items():
                 clean_line = clean_line.replace(r_before, r_after)
             for trigger in config.fail_on_contains:
                 if trigger in clean_line:
-                    raise Exception('Unexpected phrase %r at %s' % (trigger, current_key))
+                    raise exceptions.ValidationFailure(f'Unexpected phrase {repr(trigger)} at {current_key}')
             # add this line of code to the example block
             current_block.append(clean_line)
 
     if capture:
-        raise Exception('EOF reached whilst still capturing %s' % (current_key,))
+        raise exceptions.StartEndMismatch(f'EOF reached whilst still capturing {current_key}')
 
     return examples
