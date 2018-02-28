@@ -1,5 +1,7 @@
-import pystache
+import os
 import glob
+
+import pystache
 
 from snippet.config import Config
 
@@ -11,7 +13,10 @@ def write_example(config: Config, path, example_name, example_block):
         name=example_name,
         code=example_block
     )
-    with open(path, 'a' if config.output_append else 'w') as fh:
+    # TODO: this, properly...
+    clean_name = example_name.strip().replace(' ', '')
+    output_file = os.path.join(config.output_dir, example_name)
+    with open(output_file, 'a' if config.output_append else 'w') as fh:
         fh.write(output)
 
 

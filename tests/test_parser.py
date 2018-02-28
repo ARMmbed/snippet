@@ -6,7 +6,7 @@ from snippet import exceptions
 
 start = f'# this is {Config.start_flag}: '
 newline = '\n'
-A = 'items = my_api().do_something()\n'
+A = 'items = my_api().list_items()\n'
 B = 'for item in items:\n'
 C = '    print(item.name)\n'
 stop = f'# {Config.end_flag}\n'
@@ -14,7 +14,7 @@ cloak = f'# {Config.cloak_flag}\n'
 uncloak = f'# {Config.uncloak_flag}\n'
 
 # however the output is combined, it should match this
-sample_output = """items = my_api().do_something()\nfor item in items:\n    print(item.name)"""
+sample_output = """items = my_api().list_items()\nfor item in items:\n    print(item.name)"""
 
 
 class Test(unittest.TestCase):
