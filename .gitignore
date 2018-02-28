@@ -100,5 +100,8 @@ ENV/
 # mypy
 .mypy_cache/
 
+# pytest
+*.pytest
+
 # editors
 *.idea
