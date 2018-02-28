@@ -1,6 +1,7 @@
 import unittest
 from snippet.snippet import extract_snippets
 from snippet.config import Config
+from snippet import exceptions
 
 
 newline = '\n'
@@ -49,42 +50,42 @@ class Test(unittest.TestCase):
             sequence
         )
 
-    @unittest.expectedFailure
     def test_dedent_code(self):
-        sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, stop]]
-        sequence[-2] = sequence[-2].lstrip()
-        self.go_exact(
-            Config(),
-            sequence
-        )
+        with self.assertRaises(exceptions.ValidationFailure):
+            sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, stop]]
+            sequence[-2] = sequence[-2].lstrip()
+            self.go_exact(
+                Config(),
+                sequence
+            )
 
-    @unittest.expectedFailure
     def test_unstarted(self):
-        self.go_exact(
-            Config(),
-            [A, B, stop]
-        )
+        with self.assertRaises(exceptions.StartEndMismatch):
+            self.go_exact(
+                Config(),
+                [A, B, stop]
+            )
 
-    @unittest.expectedFailure
     def test_unfinished(self):
-        self.go_exact(
-            Config(),
-            [start, 'test', newline, A, B]
-        )
+        with self.assertRaises(exceptions.StartEndMismatch):
+            self.go_exact(
+                Config(),
+                [start, 'test', newline, A, B]
+            )
 
-    @unittest.expectedFailure
     def test_double_start(self):
-        self.go_exact(
-            Config(),
-            [start, 'test', newline, A, start, 'test again', newline, B, stop]
-        )
+        with self.assertRaises(exceptions.StartEndMismatch):
+            self.go_exact(
+                Config(),
+                [start, 'test', newline, A, start, 'test again', newline, B, stop]
+            )
 
-    @unittest.expectedFailure
     def test_double_stop(self):
-        self.go_exact(
-            Config(),
-            [start, 'test', newline, A, stop, B, stop]
-        )
+        with self.assertRaises(exceptions.StartEndMismatch):
+            self.go_exact(
+                Config(),
+                [start, 'test', newline, A, stop, B, stop]
+            )
 
     def test_prefix(self):
         self.go_exact(
@@ -104,19 +105,19 @@ class Test(unittest.TestCase):
              stop, 'other stuff']
         )
 
-    @unittest.expectedFailure
     def test_cloak_unstarted(self):
-        self.go_exact(
-            Config(),
-            ['some other stuff', start, 'test', newline, A, uncloak, B, stop, 'other stuff']
-        )
+        with self.assertRaises(exceptions.CloakMismatch):
+            self.go_exact(
+                Config(),
+                ['some other stuff', start, 'test', newline, A, uncloak, B, stop, 'other stuff']
+            )
 
-    @unittest.expectedFailure
     def test_cloak_unfinished(self):
-        self.go_exact(
-            Config(),
-            ['some other stuff', start, 'test', newline, A, cloak, B, stop, 'other stuff']
-        )
+        with self.assertRaises(exceptions.CloakMismatch):
+            self.go_exact(
+                Config(),
+                ['some other stuff', start, 'test', newline, A, cloak, B, stop, 'other stuff']
+            )
 
     def test_multiple(self):
         sequence = [
