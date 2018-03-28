@@ -12,7 +12,7 @@ def get_cli_opts():
 def run_from_cli():
     parser = get_cli_opts()
     config_path = parser.parse_args().config
-    snippet.workflow.run(snippet.config.get_config(config_path))
+    snippet.main(snippet.config.get_config(config_path))
 
 
 if __name__ == '__main__':

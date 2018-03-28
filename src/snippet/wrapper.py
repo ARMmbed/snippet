@@ -2,6 +2,11 @@ import traceback
 
 
 def wrap(config, failures, identifier, nullary_function):
+    """executes a function (`nullary_function`) with no arguments
+
+    to pass arguments, use partials
+    stores any exceptions in `failures`
+    """
     try:
         return nullary_function()
     except Exception as e:
