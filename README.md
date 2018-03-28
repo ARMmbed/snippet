@@ -1,13 +1,16 @@
 # snippet
 [![CircleCI](https://circleci.com/gh/ARMmbed/snippet.svg?style=svg&circle-token=f8151197e9160de7877eda3ae049d0925e9b7ff3)](https://circleci.com/gh/ARMmbed/snippet)
 
-## purpose
-Extract text snippets from files.
+A Python3 tool to extract text snippets from files
 
-This works on plain old text files of any kind.
-- Works on any language, reading from source
-- Customisable syntax
-- Write to templated output (e.g. `.md` triple quotes)
+## features
+Primarily snippet extracts marked sections of text from a given
+set of input files, and saves them elsewhere. Features include:
+
+- Works on any text file, e.g.
+any coding language by reading from source files
+- Customisable markup syntax
+- Writes to templated output (e.g. `.md` code blocks)
 - Hide sections from output
 - Validation to help avoid snippets breaking as code changes
 
@@ -27,6 +30,35 @@ tested and displayed in documentation.
 One approach, using `snippet`, is to extract the useful (customer readable!) part of the example from
 within the test, ready for rendering in the docs.
 
+# getting started
+## prerequisite
+`snippet` requires Python 3
+
+## install
+Something like:
+`git clone ARMmbed/snippet`
+
+Then:
+`pip install -e path/to/snippet`
+
+## configure
+Place a `.toml` [configuration file](https://github.com/toml-lang/toml)
+in your project directory, containing e.g.:
+
+```
+[snippet]
+input_glob = 'tests/unit/*.py'
+output_dir = 'docs/examples'
+```
+
+## run
+Run the project with the Python interpreter you installed `snippet` to:
+
+```
+python -m snippet --config=path/to/config.toml
+```
+
+# usage
 ## example
 Say you have an API that you would like to document and test:
 ```
