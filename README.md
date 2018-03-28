@@ -1,4 +1,5 @@
 # snippet
+[![CircleCI](https://circleci.com/gh/ARMmbed/snippet.svg?style=svg&circle-token=f8151197e9160de7877eda3ae049d0925e9b7ff3)](https://circleci.com/gh/ARMmbed/snippet)
 
 ## purpose
 Extract text snippets from files.
