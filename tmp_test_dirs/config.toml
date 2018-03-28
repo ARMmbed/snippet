@@ -1,5 +1,0 @@
-[snippet]
-input_glob = '*.py'
-end_flag = 'custom value'
-stop_on_first_failure = true
-foo = 'bar'            

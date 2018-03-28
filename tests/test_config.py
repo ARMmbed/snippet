@@ -7,9 +7,11 @@ import unittest
 
 import snippet
 
+from tests import tmp_test_dir
+
 
 class Test(unittest.TestCase):
-    tmpdir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'tmp_test_dir')
+    tmpdir = tmp_test_dir
 
     @classmethod
     def setUpClass(cls):

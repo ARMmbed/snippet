@@ -25,10 +25,12 @@ def extract_snippets(config: Config, lines, path):
             capture = True
             continue
 
+        current_debug_key = f'{current_key} ({line_num})'
+
         if config.end_flag in line:
             # stop capturing, and discard empty blocks
             if not capture:
-                raise exceptions.StartEndMismatch(f'Not yet capturing at {current_key}')
+                raise exceptions.StartEndMismatch(f'Not yet capturing at {current_debug_key}')
             capture = False
             if not current_block:
                 examples.pop(current_key)
@@ -36,33 +38,33 @@ def extract_snippets(config: Config, lines, path):
 
         if config.uncloak_flag in line:
             if not cloak:
-                raise exceptions.CloakMismatch(f'Already uncloaked at {current_key}')
+                raise exceptions.CloakMismatch(f'Already uncloaked at {current_debug_key}')
             cloak = False
             continue
 
         if capture and not cloak:
             if config.cloak_flag in line:
                 if cloak:
-                    raise exceptions.CloakMismatch(f'Already cloaked at {current_key}')
+                    raise exceptions.CloakMismatch(f'Already cloaked at {current_debug_key}')
                 cloak = True
                 continue
 
             # whilst capturing, append code lines to the current block
-            if config.fail_on_dedent and any(line[:current_strip].split(' ')):
-                raise exceptions.ValidationFailure(f'Unexpected dedent whilst capturing {current_key}')
+            if config.fail_on_dedent and any(line[:current_strip].lstrip()):
+                raise exceptions.ValidationFailure(f'Unexpected dedent whilst capturing {current_debug_key}')
             clean_line = line[current_strip:].rstrip()
             for r_before, r_after in config.replacements.items():
                 clean_line = clean_line.replace(r_before, r_after)
             for trigger in config.fail_on_contains:
                 if trigger in clean_line:
-                    raise exceptions.ValidationFailure(f'Unexpected phrase {repr(trigger)} at {current_key}')
+                    raise exceptions.ValidationFailure(f'Unexpected phrase {repr(trigger)} at {current_debug_key}')
             # add this line of code to the example block
             current_block.append(clean_line)
 
     if capture:
-        raise exceptions.StartEndMismatch(f'EOF reached whilst still capturing {current_key}')
+        raise exceptions.StartEndMismatch(f'EOF reached whilst still capturing {current_debug_key}')
 
     if cloak:
-        raise exceptions.CloakMismatch(f'EOF reached whilst still cloaked {current_key}')
+        raise exceptions.CloakMismatch(f'EOF reached whilst still cloaked {current_debug_key}')
 
     return examples

@@ -7,7 +7,7 @@ import toml
 class Config:
     # IO
     input_glob = 'tests/example/*.py'
-    output_template = '```python\n# example: {{{name}}}\n{{{code}}}\n```'  # a mustache template for each file
+    output_template = '```python\n# example: {{{name}}}\n{{{code}}}\n```\n'  # a mustache template for each file
     output_append = False  # if the output file exists, append to it
     output_dir = None
     output_file_ext = 'md'

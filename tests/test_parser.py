@@ -44,9 +44,27 @@ class Test(unittest.TestCase):
         self.go_exact(Config(), [start, 'test', newline, A, B, C, stop])
 
     def test_indent(self):
-        # left pad the sequence by two, to check result is dedented to depth of start
+        # left pad the sequence by two spaces, to check result is dedented to depth of start
         sequence = [f'  {x}' for x in [start + 'test' + newline, A, B, C]]
         sequence.append(stop)
+        self.go_exact(
+            Config(),
+            sequence
+        )
+
+    def test_indent_tabs(self):
+        # left pad the sequence by two tabs, to check result is dedented to depth of start
+        sequence = [f'\t\t{x}' for x in [start + 'test' + newline, A, B, C]]
+        sequence.append(stop)
+        self.go_exact(
+            Config(),
+            sequence
+        )
+
+    def test_indent_with_blank_line(self):
+        # left pad the sequence and then have some blank lines
+        sequence = [f'    {x}' for x in [start + 'test' + newline, A, B, C, stop]]
+        sequence.insert(2, '')
         self.go_exact(
             Config(),
             sequence

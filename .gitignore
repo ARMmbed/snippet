@@ -105,3 +105,6 @@ ENV/
 
 # editors
 *.idea
+
+# test directory
+tmp_test_dir
