@@ -34,9 +34,11 @@ def get_config(config_path=None, **options):
     new_options = {}
     if config_path or os.environ.get('SNIPPET_CONFIG_PATH'):
         with open(config_path) as f:
-            new_options.update(toml.load(f))
+            config_file_contents = toml.load(f)
+            snippet_config = config_file_contents['snippet']
+            new_options.update(snippet_config)
     new_options.update(options)
     config = Config()
-    for k, v in new_options:
+    for k, v in new_options.items():
         setattr(config, k, v)
     return config

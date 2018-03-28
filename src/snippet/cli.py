@@ -5,7 +5,7 @@ import snippet
 
 def get_cli_opts():
     parser = argparse.ArgumentParser()
-    parser.add_argument('config', help='path to config file')
+    parser.add_argument('--config', type=str, help='path to config file')
     return parser
 
 
