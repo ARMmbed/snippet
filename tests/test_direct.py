@@ -5,24 +5,19 @@ import shutil
 import filecmp
 
 from tests import tmp_test_dir
+from tests import sample_input_dir
 
 
 class Test(unittest.TestCase):
-    sample_input = os.path.join(os.path.dirname(__file__), 'samples')
-    sample_output_dir = os.path.join(os.path.dirname(__file__), tmp_test_dir)
-
-    def setUp(self):
-        if os.path.exists(self.sample_output_dir):
-            shutil.rmtree(self.sample_output_dir)
 
     def tearDown(self):
-        shutil.rmtree(self.sample_output_dir)
+        shutil.rmtree(tmp_test_dir)
 
     def test_run(self):
         # writing two different languages sequentially to the same file
 
         config = snippet.Config()
-        config.output_dir = self.sample_output_dir
+        config.output_dir = tmp_test_dir
         config.output_append = True
 
         # only detect the python file
@@ -35,7 +30,7 @@ class Test(unittest.TestCase):
         snippet.main(config=config)
 
         self.assertTrue(filecmp.cmp(
-            os.path.join(self.sample_output_dir, 'number1.md'),
-            os.path.join(self.sample_input, 'fixture.md'),
+            os.path.join(tmp_test_dir, 'number1.md'),
+            os.path.join(sample_input_dir, 'fixture.md'),
             shallow=False,
         ))
