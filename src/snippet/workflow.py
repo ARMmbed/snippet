@@ -19,12 +19,12 @@ def run(config: Config):
         # load the file
         lines = wrap(config, failures, path, partial(
             file_wrangler.load_file_lines, path
-        ))
+        ), [])
 
         # extract snippets
         new_examples = wrap(config, failures, path, partial(
             extract_snippets, config, lines, path
-        ))
+        ), {})
 
         # store the new examples for analysis
         examples.update(new_examples)

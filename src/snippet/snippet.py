@@ -11,7 +11,7 @@ def extract_snippets(config: Config, lines, path):
     cloak = False
     examples = {}
 
-    for line_num, line in enumerate(lines or []):
+    for line_num, line in enumerate(lines):
 
         if config.start_flag in line:
             # start capturing code from the next line

@@ -34,9 +34,10 @@ class Test(unittest.TestCase):
         config = Config()
         config.stop_on_first_failure = False
         f = []
-        result = wrap(config, f, None, x)
+        default = object()  # value to return on failure
+        result = wrap(config, f, None, x, default)
 
-        self.assertIsNone(result)
+        self.assertIs(result, default)
         self.assertEqual(len(f), 1)
         self.assertIsNone(f[0][0])
         self.assertIn('Traceback', f[0][1])

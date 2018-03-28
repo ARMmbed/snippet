@@ -11,6 +11,7 @@ from tests import test_parser as P
 
 class Test(unittest.TestCase):
     example_name = 'this snippet'
+    expect_examples = 1
     text = ''.join([
         'blah blah\n', P.start, example_name, P.newline, P.A, P.B, P.C, P.stop, '# rhubarb\n'
     ])
@@ -39,7 +40,7 @@ class Test(unittest.TestCase):
             self.assertEqual([], failures)
 
         with self.subTest(part='one example extracted'):
-            self.assertGreaterEqual(len(examples), 1)
+            self.assertEqual(len(examples), self.expect_examples)
 
         for k, v in examples.items():
             with self.subTest(part='example matches'):
@@ -48,13 +49,12 @@ class Test(unittest.TestCase):
 
 
 class TestMultipleExtract(Test):
+    # two examples in one file
+    expect_examples = 2
     text = ''.join([
         'blah blah\n', P.start, Test.example_name, P.newline, P.A, P.B, P.C, P.stop, '# rhubarb\n'
     ])
     text = text + '\n' + text.replace(Test.example_name, 'this snippet 2')
-
-    def test_read(self):
-        super().test_read()
 
 
 class TestDuplicateNames(Test):
@@ -66,3 +66,11 @@ class TestDuplicateNames(Test):
     def test_read(self):
         with self.assertRaises(exceptions.DuplicateName):
             super().test_read()
+
+
+class TestNoExamplesInFile(Test):
+    expect_examples = 0
+    text = ''.join([
+        'blah blah\n', Test.example_name, P.newline, P.A, P.B, P.C, '# rhubarb\n'
+    ])
+    text = text + '\n' + text
