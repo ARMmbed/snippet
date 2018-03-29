@@ -43,7 +43,10 @@ Then:
 
 ## configure
 Place a `.toml` [configuration file](https://github.com/toml-lang/toml)
-in your project directory, containing e.g.:
+in your project directory. Any value defined in [the config object](https://github.com/ARMmbed/snippet/blob/22cb8b4af961b8c728ab6f4d9b91922823c6620f/src/snippet/config.py#L8) 
+can be overridden.
+
+As an example, basic configuration typically includes input and output directories:
 
 ```
 [snippet]
@@ -52,10 +55,30 @@ output_dir = 'docs/examples'
 ```
 
 ## run
-Run the project with the Python interpreter you installed `snippet` to:
+Run the following command in your project, using the Python interpreter you installed `snippet` to:
 
 ```
-python -m snippet --config=path/to/config.toml
+python -m snippet
+```
+
+Alternatively, run snippet from anywhere and specify a working directory and config file:
+```
+python -m snippet path/to/root --config=path/to/config.toml
+```
+
+The full CLI options are:
+```
+> python -m snippet --help
+usage: __main__.py [-h] [--config CONFIG] [-v] [dir]
+
+positional arguments:
+  dir              path to project root, used by relative paths in config
+                   [cwd]
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --config CONFIG  path to config file
+  -v, --verbosity  increase output verbosity
 ```
 
 # usage
