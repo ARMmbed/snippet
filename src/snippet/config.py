@@ -34,10 +34,7 @@ class Config:
 
 
 def find_config(root):
-    return (
-        glob.glob(os.path.join(root, '**', '*.toml'), recursive=True) +
-        glob.glob(os.path.join(root, '**', '*.cfg'), recursive=True)
-    )
+    return glob.glob(os.path.join(root, '**', '*.toml'), recursive=True)
 
 
 def get_config(config_path=None, **options):
