@@ -24,10 +24,10 @@ class Test(unittest.TestCase):
             [snippet]
             # an example: this config is itself an example
             input_glob = 'does not match anything'
-            
+
             stop_on_first_failure = true
             end_flag = 'custom value'
-            
+
             foo = 'bar'
             fizz = 'buzz'
             """).lstrip())

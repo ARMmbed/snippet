@@ -42,8 +42,8 @@ Then:
 `pip install -e path/to/snippet`
 
 ## configure
-Place a `.toml` [configuration file](https://github.com/toml-lang/toml)
-in your project directory. Any value defined in [the config object](https://github.com/ARMmbed/snippet/blob/22cb8b4af961b8c728ab6f4d9b91922823c6620f/src/snippet/config.py#L8) 
+Place a config file in the [toml format](https://github.com/toml-lang/toml)
+in your project directory (e.g. `snippet.toml`). Any value defined in [the config object](https://github.com/ARMmbed/snippet/blob/master/src/snippet/config.py#L8)
 can be overridden.
 
 As an example, basic configuration typically includes input and output directories:
@@ -65,6 +65,9 @@ Alternatively, run snippet from anywhere and specify a working directory and con
 ```
 python -m snippet path/to/root --config=path/to/config.toml
 ```
+Config files can be specified as glob patterns, defaulting to `*.toml`, and can
+be set multiple times. Multiple files will be loaded in the order specified
+and discovered. Settings loaded last will take precedence.
 
 The full CLI options are:
 ```
@@ -72,12 +75,12 @@ The full CLI options are:
 usage: __main__.py [-h] [--config CONFIG] [-v] [dir]
 
 positional arguments:
-  dir              path to project root, used by relative paths in config
-                   [cwd]
+  dir              path to project root, used by any relative paths in loaded
+                   configs [cwd]
 
 optional arguments:
   -h, --help       show this help message and exit
-  --config CONFIG  path to config file
+  --config CONFIG  paths (or globs) to config files
   -v, --verbosity  increase output verbosity
 ```
 
@@ -160,13 +163,13 @@ for item in items:
 ```
 
 ## validation
-Because `snippet` is language-agnostic it is also unlikely that an
+Because `snippet` is language-agnostic it is unlikely that an
 IDE would detect invalid snippets, or changes to code that may break them.
 
 `snippet` can be configured to validate snippets to avoid the syntax from
 introducing bizarre broken documentation to your users. That said, it can't
 do everything - and it's still wise to QA your docs from time to time.
 Some of the checks include:
-- Tag open / close matches (can't nest examples or cloaks)
+- Tag open / close matches (avoiding nested examples or cloaks)
 - Examples left unterminated
 - Indents reducing beyond the start level for the current example
