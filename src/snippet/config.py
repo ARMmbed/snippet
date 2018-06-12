@@ -39,18 +39,32 @@ class Config:
     stop_on_first_failure = False  # fail early
 
 
-def find_config(root):
-    return glob.glob(os.path.join(root, '**', '*.toml'), recursive=True)
+def find_configs(glob_patterns):
+    configs = []
+    for glob_pattern in glob_patterns:
+        configs.extend(glob.glob(glob_pattern, recursive=True))
+    return configs
 
 
-def get_config(config_path=None, **options):
+def config_paths_from_env():
+    env_var = os.environ.get('SNIPPET_CONFIG_PATH')
+    return list(env_var) if env_var else []
+
+
+def get_config(config_paths=None, **options):
     config = Config()
     project_root = os.path.abspath(options.get('project_root', config.project_root))
 
     new_options = {}
-    config_path = config_path or os.environ.get('SNIPPET_CONFIG_PATH')
-    toml_files = [config_path] if config_path else find_config(root=project_root)
-    for toml_file in toml_files:
+
+    config_paths = config_paths or []
+    config_paths.extend(config_paths_from_env())
+
+    # fallback option - search the project directory
+    if not config_paths:
+        config_paths.append(os.path.join(project_root, '**', '*.toml'))
+
+    for toml_file in find_configs(glob_patterns=config_paths):
         logging.debug('trying config from %s', toml_file)
         with open(toml_file) as f:
             try:
