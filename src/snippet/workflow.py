@@ -1,4 +1,3 @@
-import logging
 import textwrap
 from functools import partial
 
@@ -7,13 +6,14 @@ from snippet.config import Config
 from snippet.snippet import extract_snippets
 from snippet.wrapper import wrap
 from snippet import exceptions
+from snippet.logs import logger
 
 
 def run(config: Config):
     examples = {}
     failures = []
     paths = file_wrangler.find_files(config)
-    logging.debug('files to parse:\n%s', textwrap.indent('\n'.join(paths), prefix='  '))
+    logger.debug('files to parse:\n%s', textwrap.indent('\n'.join(paths), prefix='  '))
 
     for path in paths:
         # load the file
@@ -39,8 +39,8 @@ def run(config: Config):
 
     for (path, line_num, example_name), code_lines in examples.items():
         example_block = '\n'.join(code_lines)
-        logging.info('example: %r', example_name)
-        logging.debug('example code: %s', example_block)
+        logger.info('example: %r', example_name)
+        logger.debug('example code: %s', example_block)
 
         wrap(config, failures, path, partial(
             file_wrangler.write_example, config, example_name, example_block

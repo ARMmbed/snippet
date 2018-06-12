@@ -1,8 +1,10 @@
-import glob
 import logging
+import glob
 import os
 
 import toml
+
+from snippet.logs import logger
 
 
 class Config:
@@ -20,7 +22,7 @@ class Config:
     # a mustache template for each file (triple braces important for code literals, no escaping)
     output_template = '```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n'
 
-    # Logging
+    # logger
     log_level = logging.INFO
 
     # Code block indicators
@@ -65,16 +67,16 @@ def get_config(config_paths=None, **options):
         config_paths.append(os.path.join(project_root, '**', '*.toml'))
 
     for toml_file in find_configs(glob_patterns=config_paths):
-        logging.debug('trying config from %s', toml_file)
+        logger.debug('trying config from %s', toml_file)
         with open(toml_file) as f:
             try:
                 config_file_contents = toml.load(f)
             except toml.TomlDecodeError as e:
-                logging.debug('failed to load %s: %s', toml_file, e)
+                logger.debug('failed to load %s: %s', toml_file, e)
                 continue
             snippet_config = config_file_contents.get('snippet')
             if snippet_config:
-                logging.info('loading config from %s', toml_file)
+                logger.info('loading config from %s', toml_file)
                 new_options.update(snippet_config)
 
     # passed keyword args override other parameters

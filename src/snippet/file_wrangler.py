@@ -1,10 +1,10 @@
-import logging
 import os
 import glob
 
 import pystache
 
 from snippet.config import Config
+from snippet.logs import logger
 
 
 def write_example(config: Config, example_name, example_block):
@@ -24,10 +24,10 @@ def write_example(config: Config, example_name, example_block):
     )
 
     if not os.path.exists(config.output_dir):
-        logging.info('creating output directory %s', config.output_dir)
+        logger.info('creating output directory %s', config.output_dir)
         os.makedirs(config.output_dir)
     output_file = os.path.join(config.output_dir, output_file_name)
-    logging.info('writing %r to %s', example_name, output_file)
+    logger.info('writing %r to %s', example_name, output_file)
     with open(output_file, 'a' if config.output_append else 'w') as fh:
         fh.write(output)
 
