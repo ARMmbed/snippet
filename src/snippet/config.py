@@ -9,10 +9,12 @@ class Config:
     # IO
     project_root = '.'  # the project root used for relative IO paths (set by commandline)
     input_glob = 'tests/example/*.py'
-    output_template = '```python\n# example: {{{name}}}\n{{{code}}}\n```\n'  # a mustache template for each file
-    output_append = False  # if the output file exists, append to it
+    output_append = True  # if the output file exists, append to it
     output_dir = '.'
-    output_file_ext = 'md'
+    output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
+
+    # Language and style
+    output_template = '```python\n# example: {{{name}}}\n{{{code}}}\n```\n'  # a mustache template for each file
 
     # Logging
     log_level = logging.INFO

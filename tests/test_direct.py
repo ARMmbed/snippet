@@ -21,12 +21,12 @@ class Test(unittest.TestCase):
         config.output_append = True
 
         # only detect the python file
-        config.input_glob = 'tests/samples/example.py'
+        config.input_glob = os.path.join(sample_input_dir, 'example.py')
         snippet.main(config=config)
 
         # only detect the java file
         config.output_template = '```java\n# example: {{{name}}}\n{{{code}}}\n```'
-        config.input_glob = 'tests/samples/example.java'
+        config.input_glob = os.path.join(sample_input_dir, 'example.java')
         snippet.main(config=config)
 
         self.assertTrue(filecmp.cmp(

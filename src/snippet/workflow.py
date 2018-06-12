@@ -43,7 +43,7 @@ def run(config: Config):
         logging.debug('example code: %s', example_block)
 
         wrap(config, failures, path, partial(
-            file_wrangler.write_example, config, path, example_name, example_block
+            file_wrangler.write_example, config, example_name, example_block
         ))
 
     return examples, paths, failures
