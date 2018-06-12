@@ -14,7 +14,11 @@ class Config:
     output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
 
     # Language and style
-    output_template = '```python\n# example: {{{name}}}\n{{{code}}}\n```\n'  # a mustache template for each file
+    language_name = 'python'
+    comment_prefix = '# '
+    comment_suffix = ''
+    # a mustache template for each file (triple braces important for code literals, no escaping)
+    output_template = '```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n'
 
     # Logging
     log_level = logging.INFO

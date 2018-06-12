@@ -5,7 +5,7 @@ for number in range(5):
     print(number)
 ```
 ```java
-# example: number 1
+// example: number 1
 // For more information about backpressure strategies, please have a look at related documentation:
 // https://github.com/ReactiveX/RxJava/wiki/Backpressure
 wibbler.subscribe(

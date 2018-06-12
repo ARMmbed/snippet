@@ -12,7 +12,10 @@ def write_example(config: Config, example_name, example_block):
     output = pystache.render(
         config.output_template,
         name=example_name,
-        code=example_block
+        code=example_block,
+        comment_prefix=config.comment_prefix,
+        comment_suffix=config.comment_suffix,
+        language_name=config.language_name
     )
 
     output_file_name = pystache.render(

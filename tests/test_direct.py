@@ -25,8 +25,9 @@ class Test(unittest.TestCase):
         snippet.main(config=config)
 
         # only detect the java file
-        config.output_template = '```java\n# example: {{{name}}}\n{{{code}}}\n```'
         config.input_glob = os.path.join(sample_input_dir, 'example.java')
+        config.language_name = 'java'
+        config.comment_prefix = '// '
         snippet.main(config=config)
 
         self.assertTrue(filecmp.cmp(
