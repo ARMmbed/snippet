@@ -41,4 +41,8 @@ def load_file_lines(path):
 
 def find_files(config: Config):
     """Finds input file paths, according to the config"""
-    return glob.glob(config.input_glob)
+    globs = config.input_glob if isinstance(config.input_glob, list) else [config.input_glob]
+    files = []
+    for glob_pattern in globs:
+        files.extend(glob.glob(glob_pattern, recursive=True))
+    return files
