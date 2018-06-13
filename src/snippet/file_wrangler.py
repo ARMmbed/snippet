@@ -20,7 +20,7 @@ def write_example(config: Config, example_name, example_block):
 
     output_file_name = pystache.render(
         config.output_file_name_template,
-        name=example_name.strip().replace(' ', '')
+        name=example_name.strip().replace(' ', '_').lower()
     )
 
     if not os.path.exists(config.output_dir):
@@ -41,8 +41,7 @@ def load_file_lines(path):
 
 def find_files(config: Config):
     """Finds input file paths, according to the config"""
-    globs = config.input_glob if isinstance(config.input_glob, list) else [config.input_glob]
     files = []
-    for glob_pattern in globs:
+    for glob_pattern in config.input_glob:
         files.extend(glob.glob(glob_pattern, recursive=True))
     return files
