@@ -31,7 +31,7 @@ class Test(unittest.TestCase):
         snippet.main(config=config)
 
         self.assertTrue(filecmp.cmp(
-            os.path.join(tmp_test_dir, 'number1.md'),
+            os.path.join(tmp_test_dir, 'number_1.md'),
             os.path.join(sample_input_dir, 'fixture.md'),
             shallow=False,
         ))

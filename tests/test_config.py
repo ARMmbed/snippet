@@ -66,7 +66,7 @@ class Test(unittest.TestCase):
         )
 
         self.assertTrue(filecmp.cmp(
-            os.path.join(tmp_test_dir, 'thisconfigisitselfanexample.md'),
+            os.path.join(tmp_test_dir, 'this_config_is_itself_an_example.md'),
             os.path.join(sample_input_dir, 'config_fixture.md'),
             shallow=False,
         ))
