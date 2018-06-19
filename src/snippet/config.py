@@ -14,7 +14,7 @@ class Config:
     output_append = True  # if the output file exists, append to it
     output_dir = '.'
     output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
-    write_attempts = 3
+    write_attempts = 3  # number of retries when writing output files
 
     # Language and style
     language_name = 'python'
@@ -23,7 +23,7 @@ class Config:
     # a mustache template for each file (triple braces important for code literals, no escaping)
     output_template = '```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n'
 
-    # logger
+    # Logger
     log_level = logging.INFO
 
     # Code block indicators
@@ -35,6 +35,7 @@ class Config:
     uncloak_flag = 'uncloak'
 
     # Validation and formatting logic
+    drop_lines = []  # drop lines containing these phrases
     replacements = {'self.': ''}  # straightforward replacements
     fail_on_contains = ['assert']  # fail if these strings are found in code blocks
     auto_dedent = True  # keep code left-aligned with the start flag

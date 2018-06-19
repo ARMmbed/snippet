@@ -36,10 +36,15 @@ within the test, ready for rendering in the docs.
 
 ## install
 Something like:
-`git clone ARMmbed/snippet`
-
-Then:
-`pip install -e path/to/snippet`
+```
+git clone ARMmbed/snippet
+pip install -e path/to/snippet
+```
+or directly (with `pip`>10 environment variables can be unpacked):
+```
+python -m pip install -U pip>10
+pip install git+https://${GH_TOKEN}@github.com/ARMmbed/snippet.git#egg=snippet
+```
 
 ## configure
 Place a config file in the [toml format](https://github.com/toml-lang/toml)
@@ -173,3 +178,50 @@ Some of the checks include:
 - Tag open / close matches (avoiding nested examples or cloaks)
 - Examples left unterminated
 - Indents reducing beyond the start level for the current example
+
+## notable config options
+
+Any parameter in the default configuration can be overridden.
+
+Some notable entries include:
+
+- `language_name` passed to the output template; can improve markdown rendering
+in syntax-aware renderers
+- `drop_lines` for removing entire lines containing these exact matches
+- `replacements` for globally replacing exact matches
+
+```python
+# IO
+project_root = '.'  # the project root used for relative IO paths (set by commandline)
+input_glob = 'tests/example/*.py'
+output_append = True  # if the output file exists, append to it
+output_dir = '.'
+output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
+write_attempts = 3  # number of retries when writing output files
+
+# Language and style
+language_name = 'python'
+comment_prefix = '# '
+comment_suffix = ''
+# a mustache template for each file (triple braces important for code literals, no escaping)
+output_template = '```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n'
+
+# Logger
+log_level = logging.INFO
+
+# Code block indicators
+start_flag = 'an example'
+end_flag = 'end of example'
+
+# Hidden block indicators
+cloak_flag = 'cloak'
+uncloak_flag = 'uncloak'
+
+# Validation and formatting logic
+drop_lines = []  # drop lines containing these phrases
+replacements = {'self.': ''}  # straightforward replacements
+fail_on_contains = ['assert']  # fail if these strings are found in code blocks
+auto_dedent = True  # keep code left-aligned with the start flag
+fail_on_dedent = True  # fail if code is dedented before reaching the end flag
+stop_on_first_failure = False  # fail early
+```

@@ -53,6 +53,8 @@ def extract_snippets(config: Config, lines, path):
             if config.fail_on_dedent and any(line[:current_strip].lstrip()):
                 raise exceptions.ValidationFailure(f'Unexpected dedent whilst capturing {current_debug_key}')
             clean_line = line[current_strip:].rstrip()
+            if any(match in clean_line for match in config.drop_lines):
+                continue
             for r_before, r_after in config.replacements.items():
                 clean_line = clean_line.replace(r_before, r_after)
             for trigger in config.fail_on_contains:

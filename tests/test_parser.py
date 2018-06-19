@@ -164,3 +164,28 @@ class Test(unittest.TestCase):
         for i, parsed in enumerate(self.go(Config(), sequence)):
             with self.subTest(attempt=i):
                 self.assertEqual(sample_output, parsed)
+
+    def test_drop_lines(self):
+        config = Config()
+        config.drop_lines = ['# ignore me']
+        self.go_exact(
+            config,
+            [start, 'test', newline,
+             A,
+             '# ignore me, this comment is unhelpful\n',
+             B, C,
+             stop, 'other stuff']
+        )
+
+    def test_replacements(self):
+        config = Config()
+        config.replacements = {'self.': ''}
+        self.go_exact(
+            config,
+            [start, 'test', newline,
+             'self.' + A,
+             B,
+             C,
+             stop]
+        )
+
