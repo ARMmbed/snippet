@@ -44,8 +44,6 @@ def extract_snippets(config: Config, lines, path):
 
         if capture and not cloak:
             if config.cloak_flag in line:
-                if cloak:
-                    raise exceptions.CloakMismatch(f'Already cloaked at {current_debug_key}')
                 cloak = True
                 continue
 
