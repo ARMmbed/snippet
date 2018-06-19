@@ -15,6 +15,7 @@ class Config:
     output_append = True  # if the output file exists, append to it
     output_dir = '.'
     output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
+    write_attempts = 3
 
     # Language and style
     language_name = 'python'

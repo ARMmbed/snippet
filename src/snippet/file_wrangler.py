@@ -2,6 +2,8 @@ import os
 import glob
 
 import pystache
+import time
+import random
 
 from snippet.config import Config
 from snippet.logs import logger
@@ -28,8 +30,18 @@ def write_example(config: Config, example_name, example_block):
         os.makedirs(config.output_dir)
     output_file = os.path.join(config.output_dir, output_file_name)
     logger.info('writing %r to %s', example_name, output_file)
-    with open(output_file, 'a' if config.output_append else 'w') as fh:
-        fh.write(output)
+    for i in range(1, config.write_attempts + 1):
+        # we run a retry loop as there may be contention on the output file in
+        # a multi-process environment
+        try:
+            with open(output_file, 'a' if config.output_append else 'w') as fh:
+                fh.write(output)
+                break
+        except IOError as err:
+            time.sleep(i * 0.5 + 0.1 * random.randint(0, 5))
+            logger.info('write failed (%s) retrying attempt: %s', err, i)
+    else:
+        raise IOError('could not write output file after %s attempts' % config.write_attempts)
 
 
 def load_file_lines(path):
