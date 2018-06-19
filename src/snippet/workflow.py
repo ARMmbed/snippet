@@ -1,4 +1,5 @@
 import textwrap
+import os
 from functools import partial
 
 from snippet import file_wrangler
@@ -7,11 +8,19 @@ from snippet.snippet import extract_snippets
 from snippet.wrapper import wrap
 from snippet import exceptions
 from snippet.logs import logger
+from snippet.util import ensure_list
 
 
 def run(config: Config):
     examples = {}
     failures = []
+
+    # validate and set IO directories that are relative to project root
+    config.input_glob = [
+        os.path.abspath(os.path.join(config.project_root, pattern)) for pattern in ensure_list(config.input_glob)
+    ]
+    config.output_dir = os.path.abspath(os.path.join(config.project_root, config.output_dir))
+
     paths = file_wrangler.find_files(config)
     logger.debug('files to parse:\n%s', textwrap.indent('\n'.join(paths), prefix='  '))
 

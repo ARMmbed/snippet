@@ -5,7 +5,6 @@ import os
 import toml
 
 from snippet.logs import logger
-from snippet.util import ensure_list
 
 
 class Config:
@@ -88,9 +87,4 @@ def get_config(config_paths=None, **options):
     for k, v in new_options.items():
         setattr(config, k, v)
 
-    # validate and set IO directories that are relative to project root
-    config.input_glob = [
-        os.path.abspath(os.path.join(config.project_root, pattern)) for pattern in ensure_list(config.input_glob)
-    ]
-    config.output_dir = os.path.abspath(os.path.join(config.project_root, config.output_dir))
     return config
