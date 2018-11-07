@@ -8,6 +8,14 @@ a list of versions that have been released on PyPI.
 
 [//]: # (begin_release_notes)
 
+1.1.0 (2018-11-07)
+==================
+
+### Features
+
+- Releasing to PyPI (#1)
+
+
 1.0.0 (2018-11-07)
 ==================
 
