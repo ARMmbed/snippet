@@ -24,17 +24,18 @@ def git_url_ssh_to_https(url):
     """Convert a git url
 
     url will look like
-    https://github.com/ARMmbed/autoversion.git
+    https://github.com/ARMmbed/snippet.git
     or
-    git@github.com:ARMmbed/autoversion.git
+    git@github.com:ARMmbed/snippet.git
     we want:
-    https://${GITHUB_TOKEN}@github.com/ARMmbed/autoversion.git
+    https://${GITHUB_TOKEN}@github.com/ARMmbed/snippet.git
     """
     path = url.split('github.com', 1)[1][1:].strip()
     new = 'https://{GITHUB_TOKEN}@github.com/%s' % path
     print('rewriting git url to: %s' % new)
     return new.format(GITHUB_TOKEN=os.getenv('GITHUB_TOKEN'))
 
+VERSION_FILE='src/snippet/_version.py'
 
 def main():
     """Tags the current repository
@@ -66,7 +67,7 @@ def main():
     branch_spec = 'origin/%s' % branch_name.decode('utf-8').strip()
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
     print('Committing the changelog & version')
-    subprocess.check_call(['git', 'add', 'src/auto_version/__version__.py'])
+    subprocess.check_call(['git', 'add', VERSION_FILE])
     subprocess.check_call(['git', 'add', 'CHANGELOG.md'])
     subprocess.check_call(['git', 'add', 'docs/news/*'])
     message = ':checkered_flag: :newspaper: Releasing version %s\n[skip ci]' % version
