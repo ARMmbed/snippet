@@ -11,7 +11,7 @@ install_dependencies: &install_dependencies
         python3 -m venv venv
         . venv/bin/activate
         sudo pip install -e .
-        sudo pip install green flake8 pyautoversion towncrier pytest twine==1.11
+        sudo pip install setuptools green flake8 pyautoversion towncrier pytest twine==1.11
 jobs:
   build:
     docker:

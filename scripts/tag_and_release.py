@@ -66,6 +66,11 @@ def main():
     subprocess.check_call(['git', 'remote', 'set-url', 'origin', new_url])
     branch_spec = 'origin/%s' % branch_name.decode('utf-8').strip()
     subprocess.check_call(['git', 'branch', '--set-upstream-to', branch_spec])
+    print('Generating a release package')
+    subprocess.check_call(
+        [ 'python', 'setup.py', 'clean', '--all', 'bdist_wheel', '--dist-dir', 'release-dist'])
+    print('Uploading to PyPI')
+    subprocess.check_call(['python', '-m', 'twine', 'upload', 'release-dist/*'])
     print('Committing the changelog & version')
     subprocess.check_call(['git', 'add', VERSION_FILE])
     subprocess.check_call(['git', 'add', 'CHANGELOG.md'])
@@ -79,13 +84,7 @@ def main():
     print('Marking this commit as latest')
     subprocess.check_call(['git', 'tag', '-f', 'latest'])
     subprocess.check_call(['git', 'push', '-f', '--tags'])
-    print('Generating a release package')
-    subprocess.check_call(
-        [ 'python', 'setup.py', 'clean', '--all', 'bdist_wheel', '--dist-dir', 'release-dist'])
-    print('Uploading to PyPI')
-    subprocess.check_call(['python', '-m', 'twine', 'upload', 'release-dist/*'])
     print('Done.')
-
 
 if __name__ == '__main__':
     main()
