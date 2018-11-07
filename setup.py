@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-NAME = 'snippet'
+NAME = 'code-snippet'
 __version__ = None
 
 repository_dir = os.path.dirname(__file__)
@@ -22,6 +22,8 @@ setup(
     classifiers=(
         'Intended Audience :: Developers',
     ),
+    author="David Hyman, Arm Mbed",
+    author_email="support@mbed.com",
     description="Code snippet extraction",
     include_package_data=True,
     install_requires=requirements,
