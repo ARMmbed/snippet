@@ -68,7 +68,7 @@ jobs:
       - store_test_results:
           path: test-reports
 
-release:
+  release:
     docker:
       - image: circleci/python:3.6.1
     working_directory: ~/repo
