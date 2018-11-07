@@ -1,0 +1,7 @@
+[AutoVersionConfig]
+CONFIG_NAME = "SNIPPET"
+targets = [ "src/snippet/_version.py"]
+
+[AutoVersionConfig.key_aliases]
+__version__ = "VERSION_KEY"
+COMMIT = "COMMIT"

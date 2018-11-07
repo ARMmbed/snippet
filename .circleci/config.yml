@@ -3,6 +3,15 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 version: 2
+
+install_dependencies: &install_dependencies
+  run:
+      name: install dependencies
+      command: |
+        python3 -m venv venv
+        . venv/bin/activate
+        pip install -e .
+        pip install green flake8 pyautoversion towncrier pytest twine==1.11
 jobs:
   build:
     docker:
@@ -27,13 +36,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -e .
-            pip install green flake8
+      - <<: *install_dependencies
 
       - save_cache:
           paths:
@@ -49,6 +52,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            pytest --junitxml=test-reports/results.xml
             green
 
       - run:
@@ -60,3 +64,53 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+      - store_test_results:
+          path: test-reports
+
+release:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v2-dependencies-{{ checksum "requirements.txt" }}
+          # fallback to using the latest cache if no exact match is found
+          - v2-dependencies-
+      - <<: *install_dependencies
+      - run:
+          name: autoversion
+          command: |
+            auto_version --config=scripts/autoversion.toml --release --news
+      - run:
+          name: Generate changelog
+          command: towncrier --yes --name="" --version=$(cd ../../ && python setup.py --version)
+          working_directory: docs/news
+      - run:
+          name: Tag and Release
+          command: |
+            python scripts/tag_and_release.py
+      - store_artifacts:
+          path: CHANGELOG.md
+      - save_cache:
+          paths:
+            - ./venv
+          key: v2-dependencies-{{ checksum "requirements.txt" }}
+          
+workflows:
+  version: 2
+  snippet_workflow:
+    jobs:
+      - build
+      - release_gate:
+          type: approval
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
+      - release:
+          requires:
+            - release_gate
