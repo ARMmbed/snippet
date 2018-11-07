@@ -10,8 +10,8 @@ install_dependencies: &install_dependencies
       command: |
         python3 -m venv venv
         . venv/bin/activate
-        pip install -e .
-        pip install green flake8 pyautoversion towncrier pytest twine==1.11
+        sudo pip install -e .
+        sudo pip install green flake8 pyautoversion towncrier pytest twine==1.11
 jobs:
   build:
     docker:
@@ -83,7 +83,7 @@ jobs:
       - run:
           name: autoversion
           command: |
-            auto_version --config=scripts/autoversion.toml --release --news
+            autoversion --config=scripts/autoversion.toml --release --news
       - run:
           name: Generate changelog
           command: towncrier --yes --name="" --version=$(cd ../../ && python setup.py --version)
