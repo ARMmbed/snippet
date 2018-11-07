@@ -91,7 +91,7 @@ jobs:
       - run:
           name: Tag and Release
           command: |
-            python scripts/tag_and_release.py
+            sudo python scripts/tag_and_release.py
       - store_artifacts:
           path: CHANGELOG.md
       - save_cache:
