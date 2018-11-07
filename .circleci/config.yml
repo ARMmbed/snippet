@@ -102,7 +102,7 @@ release:
           
 workflows:
   version: 2
-  autoversion_workflow:
+  snippet_workflow:
     jobs:
       - build
       - release_gate:
