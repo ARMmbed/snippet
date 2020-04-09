@@ -45,9 +45,9 @@ class Test(unittest.TestCase):
                 textwrap.dedent(
                     """
             [snippet]
-            input_glob = 'config.toml'
+            input_glob = "config.toml"
 
-            foo = 'baz'
+            foo = "baz"
             """
                 ).lstrip()
             )
