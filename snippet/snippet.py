@@ -132,10 +132,8 @@ class Examples:
                 debug_info = self._current_example.debug_id if self._current_example else ""
                 raise exceptions.ValidationFailure(f"Unexpected phrase {repr(trigger)} at {debug_info} ({line_num})")
 
-    def clean_line(self, line: str) -> Optional[str]:
+    def clean_line(self, line: str) -> str:
         """Cleans a line."""
-        if not line:
-            return None
         if not self._current_example:
             return line
         start = self._current_example.strip_number
@@ -177,8 +175,6 @@ def extract_snippets_from_text(config: Config, lines: list, path: str) -> dict:
         if config.fail_on_dedent:
             examples.validate_dedent(line, line_num)
         clean_line = examples.clean_line(line)
-        if not clean_line:
-            continue
         if any(match in clean_line for match in config.drop_lines):
             continue
         for r_before, r_after in config.replacements.items():

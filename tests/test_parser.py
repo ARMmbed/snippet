@@ -7,7 +7,6 @@ from snippet.snippet import extract_snippets_from_text
 from snippet.config import Config
 from snippet import exceptions
 
-
 start = f"# this is {Config.start_flag}: "
 newline = "\n"
 A = "items = my_api().list_items()\n"
@@ -27,9 +26,7 @@ class Test(unittest.TestCase):
     def go(self, config, sequence):
         # shorthand to get the code equivalent post-parsing
         text = "".join(sequence)
-        print(text)
         result = extract_snippets_from_text(config, text.splitlines(), "dummy_path")
-        print(result)
         return ["\n".join(block) for k, block in result.items()]
 
     def go_exact(self, config, sequence):
@@ -39,6 +36,36 @@ class Test(unittest.TestCase):
 
     def test_empty(self):
         self.assertEqual(self.go(Config(), [start, "test", newline, stop]), [])
+
+    def test_with_empty_lines(self):
+        self.assertEqual(
+            self.go(
+                Config(),
+                f"""
+            {start}
+
+            // Listening to device state changes for 2 minutes.
+            Thread.sleep(120000);
+
+            // Stopping the Wobble.
+            wibbler.stop();
+
+            {stop}
+        """,
+            ),
+            [
+                "".join(
+                    [
+                        "\n",
+                        "// Listening to device state changes for 2 minutes.\n",
+                        "Thread.sleep(120000);\n",
+                        "\n",
+                        "// Stopping the Wobble.\n",
+                        "wibbler.stop();\n",
+                    ]
+                )
+            ],
+        )
 
     def test_plain(self):
         self.go_exact(Config(), [start, "test", newline, A, B, C, stop])
