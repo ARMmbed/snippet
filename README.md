@@ -1,14 +1,14 @@
 # Snippet
 
 ![Package](https://img.shields.io/badge/Package-code--snippet-lightgrey)
-[![Documentation](https://img.shields.io/badge/Documentation-GitHub_Pages-blue)](https://armmbed.github.io/code-snippet)
+[![Documentation](https://img.shields.io/badge/Documentation-GitHub_Pages-blue)](https://armmbed.github.io/snippet)
 [![PyPI](https://img.shields.io/pypi/v/code-snippet)](https://pypi.org/project/code-snippet/)
 [![PyPI - Status](https://img.shields.io/pypi/status/code-snippet)](https://pypi.org/project/code-snippet/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/code-snippet)](https://pypi.org/project/code-snippet/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ARMmbed/code-snippet/blob/master/LICENSE)
 
-[![Build Status](https://dev.azure.com/mbed-tools/code-snippet/_apis/build/status/Build%20and%20Release?branchName=master&stageName=CI%20Checkpoint)](https://dev.azure.com/mbed-tools/code-snippet/_build/latest?definitionId=TODO_AZURE&branchName=master)
-[![Test Coverage](https://codecov.io/gh/ARMmbed/code-snippet/branch/master/graph/badge.svg)](https://codecov.io/gh/ARMmbed/code-snippet)
+[![Build Status](https://dev.azure.com/mbed-tools/code-snippet/_apis/build/status/Build%20and%20Release?branchName=master&stageName=CI%20Checkpoint)](https://dev.azure.com/mbed-tools/code-snippet/_build/latest?definitionId=15&branchName=master)
+[![Test Coverage](https://codecov.io/gh/ARMmbed/code-snippet/branch/master/graph/badge.svg)](https://codecov.io/gh/ARMmbed/snippet)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2050e74c1c485109d357/maintainability)](https://codeclimate.com/github/ARMmbed/snippet/maintainability)
 
 ## Overview
