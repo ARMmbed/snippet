@@ -1,0 +1,85 @@
+#
+# Copyright (C) 2020 Arm Mbed. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+[ProjectConfig]
+# Only path variables can and must contain 'DIR', 'PATH' or 'ROOT' in their name as
+# these tokens are used to identify path variables from other variable types.
+PROJECT_ROOT = "."
+PROJECT_NAME = "Snippet"
+PROJECT_UUID = "14544a30-0a1d-4edb-8e40-7ac66d741ba6"
+PACKAGE_NAME = "code-snippet"
+NEWS_DIR = "news/"
+SOURCE_DIR = "snippet"
+RELEASE_BRANCH_PATTERN = "^release.*$"
+MODULE_TO_DOCUMENT = "snippet"
+DOCUMENTATION_DEFAULT_OUTPUT_PATH = "local_docs"
+DOCUMENTATION_PRODUCTION_OUTPUT_PATH = "docs"
+VERSION_FILE_PATH = "snippet/_version.py"
+CHANGELOG_FILE_PATH = "CHANGELOG.md"
+
+[AutoVersionConfig]
+CONFIG_NAME = "DEFAULT"
+PRERELEASE_TOKEN = "beta"
+BUILD_TOKEN = "dev"
+TAG_TEMPLATE = "release/{version}"
+targets = [ "snippet/_version.py",]
+
+[AutoVersionConfig.key_aliases]
+__version__ = "VERSION_KEY"
+MAJOR = "major"
+MINOR = "minor"
+PATCH = "patch"
+COMMIT = "COMMIT"
+
+[AutoVersionConfig.trigger_patterns]
+major = "news/*.major"
+minor = "news/*.feature"
+patch = "news/*.bugfix"
+
+[tool.towncrier]
+directory = "news"
+filename = "CHANGELOG.md"
+package = "snippet"
+title_format = "{version} ({project_date})"
+start_string = """
+[//]: # (begin_release_notes)
+"""
+
+[[tool.towncrier.type]]
+directory = "major"
+name = "Major changes"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "Features"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bugfixes"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "doc"
+name = "Improved Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "removal"
+name = "Deprecations and Removals"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "misc"
+name = "Misc"
+showcontent = false
+
+[tool.black]
+line-length = 120
+
+[spdx]
+CreatorWebsite = "spdx.org"
+PathToSpdx = "spdx/spdxdocs"
+UUID = "6a1d2a3e-5f54-4521-b5fd-3fda5a4f879c"

@@ -1,18 +1,23 @@
 [[source]]
-
-url = "https://pypi.python.org/simple"
-verify_ssl = true
 name = "pypi"
-
+url = "https://pypi.org/simple"
+verify_ssl = true
 
 [dev-packages]
-
-"flake8" = "*"
-ipython = "*"
+black = "*"
 coverage = "*"
-green = "*"
+flake8 = "*"
+flake8-docstrings = "*"
+flake8-black = "*"
+flake8-copyright = "*"
+flake8-file-encoding = "*"
+mypy = ">=0.500"
+pytest = "*"
+pytest-cov = "*"
+wheel = "*"
+code-snippet = {editable = true, path = "."}
+mbed-tools-ci-scripts = "*"
+pre-commit = "*"
 
-
-[packages]
-
-"-e ." = "*"
+[pipenv]
+allow_prereleases = true
