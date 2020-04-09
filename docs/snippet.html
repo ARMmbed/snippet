@@ -1,0 +1,808 @@
+<!--
+-- Copyright (C) 2020 Arm Mbed. All rights reserved.
+-- SPDX-License-Identifier: Apache-2.0
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>snippet.snippet API documentation</title>
+<meta name="description" content="Text snippet extractor." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>snippet.snippet</code></h1>
+</header>
+<section id="section-intro">
+<p>Text snippet extractor.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#
+# Copyright (C) 2020 Arm Mbed. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+&#34;&#34;&#34;Text snippet extractor.&#34;&#34;&#34;
+from typing import List, Optional
+
+from snippet import exceptions
+from snippet.config import Config
+
+
+class Example:
+    &#34;&#34;&#34;An example.&#34;&#34;&#34;
+
+    def __init__(self, path: str, line_num: int, example_name: str, line: str) -&gt; None:
+        &#34;&#34;&#34;Initialiser.&#34;&#34;&#34;
+        self._key = (path, line_num, example_name)
+        self._strip = len(line) - len(line.lstrip())
+        self._text: List[str] = list()
+        self._cloaking = False
+
+    def add_line(self, line: str) -&gt; None:
+        &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+        if self._cloaking:
+            return
+        self._text.append(line)
+
+    def cloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Starts cloaking.&#34;&#34;&#34;
+        if self._cloaking:
+            raise exceptions.CloakMismatch(f&#34;Already cloaked at {self.debug_id} ({line_num})&#34;)
+        self._cloaking = True
+
+    def uncloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+        if not self._cloaking:
+            raise exceptions.CloakMismatch(f&#34;Already uncloaked at {self.debug_id} ({line_num})&#34;)
+        self._cloaking = False
+
+    @property
+    def is_cloaking(self) -&gt; bool:
+        &#34;&#34;&#34;States whether it&#39;s in cloaking mode.&#34;&#34;&#34;
+        return self._cloaking
+
+    @property
+    def is_empty(self) -&gt; bool:
+        &#34;&#34;&#34;States whether the example is empty or not.&#34;&#34;&#34;
+        return len(self._text) == 0
+
+    @property
+    def text(self) -&gt; List[str]:
+        &#34;&#34;&#34;Gets example text.&#34;&#34;&#34;
+        return self._text
+
+    @property
+    def strip_number(self) -&gt; int:
+        &#34;&#34;&#34;Gets the example strip number.&#34;&#34;&#34;
+        return self._strip
+
+    @property
+    def key(self) -&gt; tuple:
+        &#34;&#34;&#34;Gets the example key.&#34;&#34;&#34;
+        return self._key
+
+    @property
+    def debug_id(self) -&gt; str:
+        &#34;&#34;&#34;Gets some debug information about the example.&#34;&#34;&#34;
+        return str(self.key)
+
+
+class Examples:
+    &#34;&#34;&#34;All the examples in a file.&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        &#34;&#34;&#34;Initialiser.&#34;&#34;&#34;
+        self._examples: List[Example] = list()
+        self._current_example: Optional[Example] = None
+
+    def set_current(self, example: Example, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Sets current example.&#34;&#34;&#34;
+        if self._current_example:
+            raise exceptions.StartEndMismatch(f&#34;Already capturing at {self._current_example.debug_id} ({line_num})&#34;)
+        self._current_example = example
+
+    def store_current(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stores current example.&#34;&#34;&#34;
+        if not self._current_example:
+            raise exceptions.StartEndMismatch(f&#34;Not yet capturing at {line_num}&#34;)
+        if self._current_example.is_cloaking:
+            raise exceptions.CloakMismatch(
+                f&#34;End of example reached whilst still cloaked {self._current_example.debug_id} ({line_num})&#34;
+            )
+        if not self._current_example.is_empty:
+            self._examples.append(self._current_example)
+        self._current_example = None
+
+    def cloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Start cloaking.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.cloak(line_num)
+
+    def uncloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.uncloak(line_num)
+
+    def end(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Ends.&#34;&#34;&#34;
+        if self._current_example:
+            raise exceptions.StartEndMismatch(
+                f&#34;EOF reached whilst still capturing {self._current_example.debug_id} ({line_num})&#34;
+            )
+
+    def add_line(self, line: str) -&gt; None:
+        &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.add_line(line)
+
+    def validate_dedent(self, line: str, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Validates dedent.&#34;&#34;&#34;
+        if not self._current_example:
+            return
+        if any(line[: self._current_example.strip_number].lstrip()):
+            raise exceptions.ValidationFailure(
+                f&#34;Unexpected dedent whilst capturing {self._current_example.debug_id} ({line_num})&#34;
+            )
+
+    def validate_line(self, fail_on_contains: List[str], line: str, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Validates line.&#34;&#34;&#34;
+        for trigger in fail_on_contains:
+            if trigger in line:
+                debug_info = self._current_example.debug_id if self._current_example else &#34;&#34;
+                raise exceptions.ValidationFailure(f&#34;Unexpected phrase {repr(trigger)} at {debug_info} ({line_num})&#34;)
+
+    def clean_line(self, line: str) -&gt; str:
+        &#34;&#34;&#34;Cleans a line.&#34;&#34;&#34;
+        if not self._current_example:
+            return line
+        start = self._current_example.strip_number
+        return line[start:].rstrip()
+
+    @property
+    def all(self) -&gt; list:
+        &#34;&#34;&#34;Gets all the examples.&#34;&#34;&#34;
+        return self._examples
+
+
+def extract_snippets_from_text(config: Config, lines: list, path: str) -&gt; dict:
+    &#34;&#34;&#34;Finds snippets in lines of text.&#34;&#34;&#34;
+    examples = Examples()
+    line_index = 0
+    for line_num, line in enumerate(lines):
+        line_index = line_num
+        if config.start_flag in line:
+            # start capturing code from the next line
+            examples.set_current(
+                Example(path=path, line_num=line_num, example_name=line.rsplit(&#34;:&#34;)[-1].strip(), line=line), line_num
+            )
+            continue
+
+        if config.end_flag in line:
+            # stop capturing, and discard empty blocks
+            examples.store_current(line_num)
+            continue
+
+        if config.uncloak_flag in line:
+            examples.uncloak(line_num)
+            continue
+
+        if config.cloak_flag in line:
+            examples.cloak(line_num)
+            continue
+
+        # whilst capturing, append code lines to the current block
+        if config.fail_on_dedent:
+            examples.validate_dedent(line, line_num)
+        clean_line = examples.clean_line(line)
+        if any(match in clean_line for match in config.drop_lines):
+            continue
+        for r_before, r_after in config.replacements.items():
+            clean_line = clean_line.replace(r_before, r_after)
+        examples.validate_line(config.fail_on_contains, clean_line, line_num)
+
+        # add this line of code to the example block
+        examples.add_line(clean_line)
+
+    examples.end(line_index)
+    return {example.key: example.text for example in examples.all}</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="snippet.snippet.extract_snippets_from_text"><code class="name flex">
+<span>def <span class="ident">extract_snippets_from_text</span></span>(<span>config: <a title="snippet.config.Config" href="config.html#snippet.config.Config">Config</a>, lines: list, path: str) -> dict</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Finds snippets in lines of text.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extract_snippets_from_text(config: Config, lines: list, path: str) -&gt; dict:
+    &#34;&#34;&#34;Finds snippets in lines of text.&#34;&#34;&#34;
+    examples = Examples()
+    line_index = 0
+    for line_num, line in enumerate(lines):
+        line_index = line_num
+        if config.start_flag in line:
+            # start capturing code from the next line
+            examples.set_current(
+                Example(path=path, line_num=line_num, example_name=line.rsplit(&#34;:&#34;)[-1].strip(), line=line), line_num
+            )
+            continue
+
+        if config.end_flag in line:
+            # stop capturing, and discard empty blocks
+            examples.store_current(line_num)
+            continue
+
+        if config.uncloak_flag in line:
+            examples.uncloak(line_num)
+            continue
+
+        if config.cloak_flag in line:
+            examples.cloak(line_num)
+            continue
+
+        # whilst capturing, append code lines to the current block
+        if config.fail_on_dedent:
+            examples.validate_dedent(line, line_num)
+        clean_line = examples.clean_line(line)
+        if any(match in clean_line for match in config.drop_lines):
+            continue
+        for r_before, r_after in config.replacements.items():
+            clean_line = clean_line.replace(r_before, r_after)
+        examples.validate_line(config.fail_on_contains, clean_line, line_num)
+
+        # add this line of code to the example block
+        examples.add_line(clean_line)
+
+    examples.end(line_index)
+    return {example.key: example.text for example in examples.all}</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="snippet.snippet.Example"><code class="flex name class">
+<span>class <span class="ident">Example</span></span>
+<span>(</span><span>path: str, line_num: int, example_name: str, line: str)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>An example.</p>
+<p>Initialiser.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Example:
+    &#34;&#34;&#34;An example.&#34;&#34;&#34;
+
+    def __init__(self, path: str, line_num: int, example_name: str, line: str) -&gt; None:
+        &#34;&#34;&#34;Initialiser.&#34;&#34;&#34;
+        self._key = (path, line_num, example_name)
+        self._strip = len(line) - len(line.lstrip())
+        self._text: List[str] = list()
+        self._cloaking = False
+
+    def add_line(self, line: str) -&gt; None:
+        &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+        if self._cloaking:
+            return
+        self._text.append(line)
+
+    def cloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Starts cloaking.&#34;&#34;&#34;
+        if self._cloaking:
+            raise exceptions.CloakMismatch(f&#34;Already cloaked at {self.debug_id} ({line_num})&#34;)
+        self._cloaking = True
+
+    def uncloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+        if not self._cloaking:
+            raise exceptions.CloakMismatch(f&#34;Already uncloaked at {self.debug_id} ({line_num})&#34;)
+        self._cloaking = False
+
+    @property
+    def is_cloaking(self) -&gt; bool:
+        &#34;&#34;&#34;States whether it&#39;s in cloaking mode.&#34;&#34;&#34;
+        return self._cloaking
+
+    @property
+    def is_empty(self) -&gt; bool:
+        &#34;&#34;&#34;States whether the example is empty or not.&#34;&#34;&#34;
+        return len(self._text) == 0
+
+    @property
+    def text(self) -&gt; List[str]:
+        &#34;&#34;&#34;Gets example text.&#34;&#34;&#34;
+        return self._text
+
+    @property
+    def strip_number(self) -&gt; int:
+        &#34;&#34;&#34;Gets the example strip number.&#34;&#34;&#34;
+        return self._strip
+
+    @property
+    def key(self) -&gt; tuple:
+        &#34;&#34;&#34;Gets the example key.&#34;&#34;&#34;
+        return self._key
+
+    @property
+    def debug_id(self) -&gt; str:
+        &#34;&#34;&#34;Gets some debug information about the example.&#34;&#34;&#34;
+        return str(self.key)</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="snippet.snippet.Example.debug_id"><code class="name">var <span class="ident">debug_id</span></code></dt>
+<dd>
+<section class="desc"><p>Gets some debug information about the example.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def debug_id(self) -&gt; str:
+    &#34;&#34;&#34;Gets some debug information about the example.&#34;&#34;&#34;
+    return str(self.key)</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.is_cloaking"><code class="name">var <span class="ident">is_cloaking</span></code></dt>
+<dd>
+<section class="desc"><p>States whether it's in cloaking mode.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def is_cloaking(self) -&gt; bool:
+    &#34;&#34;&#34;States whether it&#39;s in cloaking mode.&#34;&#34;&#34;
+    return self._cloaking</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.is_empty"><code class="name">var <span class="ident">is_empty</span></code></dt>
+<dd>
+<section class="desc"><p>States whether the example is empty or not.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def is_empty(self) -&gt; bool:
+    &#34;&#34;&#34;States whether the example is empty or not.&#34;&#34;&#34;
+    return len(self._text) == 0</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.key"><code class="name">var <span class="ident">key</span></code></dt>
+<dd>
+<section class="desc"><p>Gets the example key.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def key(self) -&gt; tuple:
+    &#34;&#34;&#34;Gets the example key.&#34;&#34;&#34;
+    return self._key</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.strip_number"><code class="name">var <span class="ident">strip_number</span></code></dt>
+<dd>
+<section class="desc"><p>Gets the example strip number.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def strip_number(self) -&gt; int:
+    &#34;&#34;&#34;Gets the example strip number.&#34;&#34;&#34;
+    return self._strip</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.text"><code class="name">var <span class="ident">text</span></code></dt>
+<dd>
+<section class="desc"><p>Gets example text.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def text(self) -&gt; List[str]:
+    &#34;&#34;&#34;Gets example text.&#34;&#34;&#34;
+    return self._text</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="snippet.snippet.Example.add_line"><code class="name flex">
+<span>def <span class="ident">add_line</span></span>(<span>self, line: str) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a line.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_line(self, line: str) -&gt; None:
+    &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+    if self._cloaking:
+        return
+    self._text.append(line)</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.cloak"><code class="name flex">
+<span>def <span class="ident">cloak</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Starts cloaking.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cloak(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Starts cloaking.&#34;&#34;&#34;
+    if self._cloaking:
+        raise exceptions.CloakMismatch(f&#34;Already cloaked at {self.debug_id} ({line_num})&#34;)
+    self._cloaking = True</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Example.uncloak"><code class="name flex">
+<span>def <span class="ident">uncloak</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Stops cloaking.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def uncloak(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+    if not self._cloaking:
+        raise exceptions.CloakMismatch(f&#34;Already uncloaked at {self.debug_id} ({line_num})&#34;)
+    self._cloaking = False</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="snippet.snippet.Examples"><code class="flex name class">
+<span>class <span class="ident">Examples</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>All the examples in a file.</p>
+<p>Initialiser.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Examples:
+    &#34;&#34;&#34;All the examples in a file.&#34;&#34;&#34;
+
+    def __init__(self) -&gt; None:
+        &#34;&#34;&#34;Initialiser.&#34;&#34;&#34;
+        self._examples: List[Example] = list()
+        self._current_example: Optional[Example] = None
+
+    def set_current(self, example: Example, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Sets current example.&#34;&#34;&#34;
+        if self._current_example:
+            raise exceptions.StartEndMismatch(f&#34;Already capturing at {self._current_example.debug_id} ({line_num})&#34;)
+        self._current_example = example
+
+    def store_current(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stores current example.&#34;&#34;&#34;
+        if not self._current_example:
+            raise exceptions.StartEndMismatch(f&#34;Not yet capturing at {line_num}&#34;)
+        if self._current_example.is_cloaking:
+            raise exceptions.CloakMismatch(
+                f&#34;End of example reached whilst still cloaked {self._current_example.debug_id} ({line_num})&#34;
+            )
+        if not self._current_example.is_empty:
+            self._examples.append(self._current_example)
+        self._current_example = None
+
+    def cloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Start cloaking.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.cloak(line_num)
+
+    def uncloak(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.uncloak(line_num)
+
+    def end(self, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Ends.&#34;&#34;&#34;
+        if self._current_example:
+            raise exceptions.StartEndMismatch(
+                f&#34;EOF reached whilst still capturing {self._current_example.debug_id} ({line_num})&#34;
+            )
+
+    def add_line(self, line: str) -&gt; None:
+        &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+        if self._current_example:
+            self._current_example.add_line(line)
+
+    def validate_dedent(self, line: str, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Validates dedent.&#34;&#34;&#34;
+        if not self._current_example:
+            return
+        if any(line[: self._current_example.strip_number].lstrip()):
+            raise exceptions.ValidationFailure(
+                f&#34;Unexpected dedent whilst capturing {self._current_example.debug_id} ({line_num})&#34;
+            )
+
+    def validate_line(self, fail_on_contains: List[str], line: str, line_num: int) -&gt; None:
+        &#34;&#34;&#34;Validates line.&#34;&#34;&#34;
+        for trigger in fail_on_contains:
+            if trigger in line:
+                debug_info = self._current_example.debug_id if self._current_example else &#34;&#34;
+                raise exceptions.ValidationFailure(f&#34;Unexpected phrase {repr(trigger)} at {debug_info} ({line_num})&#34;)
+
+    def clean_line(self, line: str) -&gt; str:
+        &#34;&#34;&#34;Cleans a line.&#34;&#34;&#34;
+        if not self._current_example:
+            return line
+        start = self._current_example.strip_number
+        return line[start:].rstrip()
+
+    @property
+    def all(self) -&gt; list:
+        &#34;&#34;&#34;Gets all the examples.&#34;&#34;&#34;
+        return self._examples</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="snippet.snippet.Examples.all"><code class="name">var <span class="ident">all</span></code></dt>
+<dd>
+<section class="desc"><p>Gets all the examples.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def all(self) -&gt; list:
+    &#34;&#34;&#34;Gets all the examples.&#34;&#34;&#34;
+    return self._examples</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="snippet.snippet.Examples.add_line"><code class="name flex">
+<span>def <span class="ident">add_line</span></span>(<span>self, line: str) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Adds a line.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_line(self, line: str) -&gt; None:
+    &#34;&#34;&#34;Adds a line.&#34;&#34;&#34;
+    if self._current_example:
+        self._current_example.add_line(line)</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.clean_line"><code class="name flex">
+<span>def <span class="ident">clean_line</span></span>(<span>self, line: str) -> str</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Cleans a line.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clean_line(self, line: str) -&gt; str:
+    &#34;&#34;&#34;Cleans a line.&#34;&#34;&#34;
+    if not self._current_example:
+        return line
+    start = self._current_example.strip_number
+    return line[start:].rstrip()</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.cloak"><code class="name flex">
+<span>def <span class="ident">cloak</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Start cloaking.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cloak(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Start cloaking.&#34;&#34;&#34;
+    if self._current_example:
+        self._current_example.cloak(line_num)</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.end"><code class="name flex">
+<span>def <span class="ident">end</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Ends.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def end(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Ends.&#34;&#34;&#34;
+    if self._current_example:
+        raise exceptions.StartEndMismatch(
+            f&#34;EOF reached whilst still capturing {self._current_example.debug_id} ({line_num})&#34;
+        )</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.set_current"><code class="name flex">
+<span>def <span class="ident">set_current</span></span>(<span>self, example: <a title="snippet.snippet.Example" href="#snippet.snippet.Example">Example</a>, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Sets current example.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_current(self, example: Example, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Sets current example.&#34;&#34;&#34;
+    if self._current_example:
+        raise exceptions.StartEndMismatch(f&#34;Already capturing at {self._current_example.debug_id} ({line_num})&#34;)
+    self._current_example = example</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.store_current"><code class="name flex">
+<span>def <span class="ident">store_current</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Stores current example.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def store_current(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Stores current example.&#34;&#34;&#34;
+    if not self._current_example:
+        raise exceptions.StartEndMismatch(f&#34;Not yet capturing at {line_num}&#34;)
+    if self._current_example.is_cloaking:
+        raise exceptions.CloakMismatch(
+            f&#34;End of example reached whilst still cloaked {self._current_example.debug_id} ({line_num})&#34;
+        )
+    if not self._current_example.is_empty:
+        self._examples.append(self._current_example)
+    self._current_example = None</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.uncloak"><code class="name flex">
+<span>def <span class="ident">uncloak</span></span>(<span>self, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Stops cloaking.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def uncloak(self, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Stops cloaking.&#34;&#34;&#34;
+    if self._current_example:
+        self._current_example.uncloak(line_num)</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.validate_dedent"><code class="name flex">
+<span>def <span class="ident">validate_dedent</span></span>(<span>self, line: str, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Validates dedent.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_dedent(self, line: str, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Validates dedent.&#34;&#34;&#34;
+    if not self._current_example:
+        return
+    if any(line[: self._current_example.strip_number].lstrip()):
+        raise exceptions.ValidationFailure(
+            f&#34;Unexpected dedent whilst capturing {self._current_example.debug_id} ({line_num})&#34;
+        )</code></pre>
+</details>
+</dd>
+<dt id="snippet.snippet.Examples.validate_line"><code class="name flex">
+<span>def <span class="ident">validate_line</span></span>(<span>self, fail_on_contains: List[str], line: str, line_num: int) -> NoneType</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Validates line.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_line(self, fail_on_contains: List[str], line: str, line_num: int) -&gt; None:
+    &#34;&#34;&#34;Validates line.&#34;&#34;&#34;
+    for trigger in fail_on_contains:
+        if trigger in line:
+            debug_info = self._current_example.debug_id if self._current_example else &#34;&#34;
+            raise exceptions.ValidationFailure(f&#34;Unexpected phrase {repr(trigger)} at {debug_info} ({line_num})&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="snippet" href="index.html">snippet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="snippet.snippet.extract_snippets_from_text" href="#snippet.snippet.extract_snippets_from_text">extract_snippets_from_text</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="snippet.snippet.Example" href="#snippet.snippet.Example">Example</a></code></h4>
+<ul class="two-column">
+<li><code><a title="snippet.snippet.Example.add_line" href="#snippet.snippet.Example.add_line">add_line</a></code></li>
+<li><code><a title="snippet.snippet.Example.cloak" href="#snippet.snippet.Example.cloak">cloak</a></code></li>
+<li><code><a title="snippet.snippet.Example.debug_id" href="#snippet.snippet.Example.debug_id">debug_id</a></code></li>
+<li><code><a title="snippet.snippet.Example.is_cloaking" href="#snippet.snippet.Example.is_cloaking">is_cloaking</a></code></li>
+<li><code><a title="snippet.snippet.Example.is_empty" href="#snippet.snippet.Example.is_empty">is_empty</a></code></li>
+<li><code><a title="snippet.snippet.Example.key" href="#snippet.snippet.Example.key">key</a></code></li>
+<li><code><a title="snippet.snippet.Example.strip_number" href="#snippet.snippet.Example.strip_number">strip_number</a></code></li>
+<li><code><a title="snippet.snippet.Example.text" href="#snippet.snippet.Example.text">text</a></code></li>
+<li><code><a title="snippet.snippet.Example.uncloak" href="#snippet.snippet.Example.uncloak">uncloak</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="snippet.snippet.Examples" href="#snippet.snippet.Examples">Examples</a></code></h4>
+<ul class="two-column">
+<li><code><a title="snippet.snippet.Examples.add_line" href="#snippet.snippet.Examples.add_line">add_line</a></code></li>
+<li><code><a title="snippet.snippet.Examples.all" href="#snippet.snippet.Examples.all">all</a></code></li>
+<li><code><a title="snippet.snippet.Examples.clean_line" href="#snippet.snippet.Examples.clean_line">clean_line</a></code></li>
+<li><code><a title="snippet.snippet.Examples.cloak" href="#snippet.snippet.Examples.cloak">cloak</a></code></li>
+<li><code><a title="snippet.snippet.Examples.end" href="#snippet.snippet.Examples.end">end</a></code></li>
+<li><code><a title="snippet.snippet.Examples.set_current" href="#snippet.snippet.Examples.set_current">set_current</a></code></li>
+<li><code><a title="snippet.snippet.Examples.store_current" href="#snippet.snippet.Examples.store_current">store_current</a></code></li>
+<li><code><a title="snippet.snippet.Examples.uncloak" href="#snippet.snippet.Examples.uncloak">uncloak</a></code></li>
+<li><code><a title="snippet.snippet.Examples.validate_dedent" href="#snippet.snippet.Examples.validate_dedent">validate_dedent</a></code></li>
+<li><code><a title="snippet.snippet.Examples.validate_line" href="#snippet.snippet.Examples.validate_line">validate_line</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

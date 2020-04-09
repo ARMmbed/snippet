@@ -1,0 +1,427 @@
+<!--
+-- Copyright (C) 2020 Arm Mbed. All rights reserved.
+-- SPDX-License-Identifier: Apache-2.0
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.5" />
+<title>snippet.config API documentation</title>
+<meta name="description" content="Definition of the configuration of snippet." />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>snippet.config</code></h1>
+</header>
+<section id="section-intro">
+<p>Definition of the configuration of snippet.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#
+# Copyright (C) 2020 Arm Mbed. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+&#34;&#34;&#34;Definition of the configuration of snippet.&#34;&#34;&#34;
+import glob
+import logging
+import os
+from pathlib import Path
+
+import toml
+
+from snippet._internal.logs import LOGGER
+from snippet._internal.util import ensure_list
+from typing import Optional, List
+
+
+class EnvironmentVariables:
+    &#34;&#34;&#34;Environment variables used by snippet.&#34;&#34;&#34;
+
+    @property
+    def SNIPPET_CONFIG_PATH(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;Path to the configuration file for snippet.&#34;&#34;&#34;
+        return os.getenv(&#34;SNIPPET_CONFIG_PATH&#34;)
+
+
+DEFAULT_PROJECT_ROOT_PATH = &#34;.&#34;
+
+
+class Config:
+    &#34;&#34;&#34;Definition of snippet&#39;s configuration.&#34;&#34;&#34;
+
+    # IO
+    project_root = DEFAULT_PROJECT_ROOT_PATH  # the project root used for relative IO paths (set by commandline)
+    input_glob = [&#34;tests/example/*.py&#34;]
+    output_append = True  # if the output file exists, append to it
+    output_dir = &#34;.&#34;
+    output_file_name_template = &#34;{{name}}.md&#34;  # a mustache template for the output file name
+    write_attempts = 3  # number of retries when writing output files
+
+    # Language and style
+    language_name = &#34;python&#34;
+    comment_prefix = &#34;# &#34;
+    comment_suffix = &#34;&#34;
+    # a mustache template for each file (triple braces important for code literals, no escaping)
+    output_template = &#34;```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n&#34;
+
+    # Logger
+    log_level = logging.INFO
+
+    # Code block indicators
+    start_flag = &#34;an example&#34;
+    end_flag = &#34;end of example&#34;
+
+    # Hidden block indicators
+    cloak_flag = &#34;cloak&#34;
+    uncloak_flag = &#34;uncloak&#34;
+
+    # Validation and formatting logic
+    drop_lines: List[str] = list()  # drop lines containing these phrases
+    replacements = {&#34;self.&#34;: &#34;&#34;}  # straightforward replacements
+    fail_on_contains = [&#34;assert&#34;]  # fail if these strings are found in code blocks
+    auto_dedent = True  # keep code left-aligned with the start flag
+    fail_on_dedent = True  # fail if code is dedented before reaching the end flag
+    stop_on_first_failure = False  # fail early
+
+
+def get_config(config_paths: Optional[list] = None, **options: dict) -&gt; Config:
+    &#34;&#34;&#34;Gets Snippet&#39;s configuration.&#34;&#34;&#34;
+    config = Config()
+    config_paths = _determine_config_paths(config_paths, options)
+    new_options = _load_configs(config_paths)
+
+    # passed keyword args override other parameters
+    new_options.update(options)
+
+    # update the config object
+    for k, v in new_options.items():
+        setattr(config, k, v)
+
+    return config
+
+
+def _load_configs(config_paths: list) -&gt; dict:
+    &#34;&#34;&#34;Loads all the config files.&#34;&#34;&#34;
+    new_options = {}
+    for toml_file in _find_configs(glob_patterns=config_paths):
+        LOGGER.debug(&#34;trying config from %s&#34;, toml_file)
+        with open(toml_file, encoding=&#34;utf8&#34;) as f:
+            try:
+                config_file_contents = toml.load(f)
+            except toml.TomlDecodeError as e:
+                LOGGER.debug(&#34;failed to load %s: %s&#34;, toml_file, e)
+                continue
+            snippet_config = config_file_contents.get(&#34;snippet&#34;)
+            if snippet_config:
+                LOGGER.info(&#34;loading config from %s&#34;, toml_file)
+                new_options.update(snippet_config)
+    return new_options
+
+
+def _find_configs(glob_patterns: list) -&gt; list:
+    &#34;&#34;&#34;Finds all the different configuration files on the file system.&#34;&#34;&#34;
+    configs = []
+    for glob_pattern in glob_patterns:
+        configs.extend(glob.glob(glob_pattern, recursive=True))
+    return configs
+
+
+def _config_paths_from_env() -&gt; list:
+    &#34;&#34;&#34;Gets configuration paths from environment.&#34;&#34;&#34;
+    return ensure_list(EnvironmentVariables().SNIPPET_CONFIG_PATH)
+
+
+def _determine_config_paths(config_paths: Optional[list], options: dict) -&gt; list:
+    &#34;&#34;&#34;Determines the paths to all configuration files.&#34;&#34;&#34;
+    project_root = Path(options.get(&#34;project_root&#34;, DEFAULT_PROJECT_ROOT_PATH)).absolute()
+
+    config_paths = config_paths or list()
+    config_paths.extend(_config_paths_from_env())
+    # fallback option - search the project directory
+    if len(config_paths) == 0:
+        config_paths.append(str((project_root.joinpath(&#34;**&#34;, &#34;*.toml&#34;))))
+    return config_paths</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="snippet.config.get_config"><code class="name flex">
+<span>def <span class="ident">get_config</span></span>(<span>config_paths: Union[list, NoneType] = None, **options: dict) -> <a title="snippet.config.Config" href="#snippet.config.Config">Config</a></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Gets Snippet's configuration.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_config(config_paths: Optional[list] = None, **options: dict) -&gt; Config:
+    &#34;&#34;&#34;Gets Snippet&#39;s configuration.&#34;&#34;&#34;
+    config = Config()
+    config_paths = _determine_config_paths(config_paths, options)
+    new_options = _load_configs(config_paths)
+
+    # passed keyword args override other parameters
+    new_options.update(options)
+
+    # update the config object
+    for k, v in new_options.items():
+        setattr(config, k, v)
+
+    return config</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="snippet.config.Config"><code class="flex name class">
+<span>class <span class="ident">Config</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Definition of snippet's configuration.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Config:
+    &#34;&#34;&#34;Definition of snippet&#39;s configuration.&#34;&#34;&#34;
+
+    # IO
+    project_root = DEFAULT_PROJECT_ROOT_PATH  # the project root used for relative IO paths (set by commandline)
+    input_glob = [&#34;tests/example/*.py&#34;]
+    output_append = True  # if the output file exists, append to it
+    output_dir = &#34;.&#34;
+    output_file_name_template = &#34;{{name}}.md&#34;  # a mustache template for the output file name
+    write_attempts = 3  # number of retries when writing output files
+
+    # Language and style
+    language_name = &#34;python&#34;
+    comment_prefix = &#34;# &#34;
+    comment_suffix = &#34;&#34;
+    # a mustache template for each file (triple braces important for code literals, no escaping)
+    output_template = &#34;```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n&#34;
+
+    # Logger
+    log_level = logging.INFO
+
+    # Code block indicators
+    start_flag = &#34;an example&#34;
+    end_flag = &#34;end of example&#34;
+
+    # Hidden block indicators
+    cloak_flag = &#34;cloak&#34;
+    uncloak_flag = &#34;uncloak&#34;
+
+    # Validation and formatting logic
+    drop_lines: List[str] = list()  # drop lines containing these phrases
+    replacements = {&#34;self.&#34;: &#34;&#34;}  # straightforward replacements
+    fail_on_contains = [&#34;assert&#34;]  # fail if these strings are found in code blocks
+    auto_dedent = True  # keep code left-aligned with the start flag
+    fail_on_dedent = True  # fail if code is dedented before reaching the end flag
+    stop_on_first_failure = False  # fail early</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="snippet.config.Config.auto_dedent"><code class="name">var <span class="ident">auto_dedent</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.cloak_flag"><code class="name">var <span class="ident">cloak_flag</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.comment_prefix"><code class="name">var <span class="ident">comment_prefix</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.comment_suffix"><code class="name">var <span class="ident">comment_suffix</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.drop_lines"><code class="name">var <span class="ident">drop_lines</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.end_flag"><code class="name">var <span class="ident">end_flag</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.fail_on_contains"><code class="name">var <span class="ident">fail_on_contains</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.fail_on_dedent"><code class="name">var <span class="ident">fail_on_dedent</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.input_glob"><code class="name">var <span class="ident">input_glob</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.language_name"><code class="name">var <span class="ident">language_name</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.log_level"><code class="name">var <span class="ident">log_level</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.output_append"><code class="name">var <span class="ident">output_append</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.output_dir"><code class="name">var <span class="ident">output_dir</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.output_file_name_template"><code class="name">var <span class="ident">output_file_name_template</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.output_template"><code class="name">var <span class="ident">output_template</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.project_root"><code class="name">var <span class="ident">project_root</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.replacements"><code class="name">var <span class="ident">replacements</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.start_flag"><code class="name">var <span class="ident">start_flag</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.stop_on_first_failure"><code class="name">var <span class="ident">stop_on_first_failure</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.uncloak_flag"><code class="name">var <span class="ident">uncloak_flag</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+<dt id="snippet.config.Config.write_attempts"><code class="name">var <span class="ident">write_attempts</span></code></dt>
+<dd>
+<section class="desc"></section>
+</dd>
+</dl>
+</dd>
+<dt id="snippet.config.EnvironmentVariables"><code class="flex name class">
+<span>class <span class="ident">EnvironmentVariables</span></span>
+</code></dt>
+<dd>
+<section class="desc"><p>Environment variables used by snippet.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EnvironmentVariables:
+    &#34;&#34;&#34;Environment variables used by snippet.&#34;&#34;&#34;
+
+    @property
+    def SNIPPET_CONFIG_PATH(self) -&gt; Optional[str]:
+        &#34;&#34;&#34;Path to the configuration file for snippet.&#34;&#34;&#34;
+        return os.getenv(&#34;SNIPPET_CONFIG_PATH&#34;)</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="snippet.config.EnvironmentVariables.SNIPPET_CONFIG_PATH"><code class="name">var <span class="ident">SNIPPET_CONFIG_PATH</span></code></dt>
+<dd>
+<section class="desc"><p>Path to the configuration file for snippet.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def SNIPPET_CONFIG_PATH(self) -&gt; Optional[str]:
+    &#34;&#34;&#34;Path to the configuration file for snippet.&#34;&#34;&#34;
+    return os.getenv(&#34;SNIPPET_CONFIG_PATH&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="snippet" href="index.html">snippet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="snippet.config.get_config" href="#snippet.config.get_config">get_config</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="snippet.config.Config" href="#snippet.config.Config">Config</a></code></h4>
+<ul class="">
+<li><code><a title="snippet.config.Config.auto_dedent" href="#snippet.config.Config.auto_dedent">auto_dedent</a></code></li>
+<li><code><a title="snippet.config.Config.cloak_flag" href="#snippet.config.Config.cloak_flag">cloak_flag</a></code></li>
+<li><code><a title="snippet.config.Config.comment_prefix" href="#snippet.config.Config.comment_prefix">comment_prefix</a></code></li>
+<li><code><a title="snippet.config.Config.comment_suffix" href="#snippet.config.Config.comment_suffix">comment_suffix</a></code></li>
+<li><code><a title="snippet.config.Config.drop_lines" href="#snippet.config.Config.drop_lines">drop_lines</a></code></li>
+<li><code><a title="snippet.config.Config.end_flag" href="#snippet.config.Config.end_flag">end_flag</a></code></li>
+<li><code><a title="snippet.config.Config.fail_on_contains" href="#snippet.config.Config.fail_on_contains">fail_on_contains</a></code></li>
+<li><code><a title="snippet.config.Config.fail_on_dedent" href="#snippet.config.Config.fail_on_dedent">fail_on_dedent</a></code></li>
+<li><code><a title="snippet.config.Config.input_glob" href="#snippet.config.Config.input_glob">input_glob</a></code></li>
+<li><code><a title="snippet.config.Config.language_name" href="#snippet.config.Config.language_name">language_name</a></code></li>
+<li><code><a title="snippet.config.Config.log_level" href="#snippet.config.Config.log_level">log_level</a></code></li>
+<li><code><a title="snippet.config.Config.output_append" href="#snippet.config.Config.output_append">output_append</a></code></li>
+<li><code><a title="snippet.config.Config.output_dir" href="#snippet.config.Config.output_dir">output_dir</a></code></li>
+<li><code><a title="snippet.config.Config.output_file_name_template" href="#snippet.config.Config.output_file_name_template">output_file_name_template</a></code></li>
+<li><code><a title="snippet.config.Config.output_template" href="#snippet.config.Config.output_template">output_template</a></code></li>
+<li><code><a title="snippet.config.Config.project_root" href="#snippet.config.Config.project_root">project_root</a></code></li>
+<li><code><a title="snippet.config.Config.replacements" href="#snippet.config.Config.replacements">replacements</a></code></li>
+<li><code><a title="snippet.config.Config.start_flag" href="#snippet.config.Config.start_flag">start_flag</a></code></li>
+<li><code><a title="snippet.config.Config.stop_on_first_failure" href="#snippet.config.Config.stop_on_first_failure">stop_on_first_failure</a></code></li>
+<li><code><a title="snippet.config.Config.uncloak_flag" href="#snippet.config.Config.uncloak_flag">uncloak_flag</a></code></li>
+<li><code><a title="snippet.config.Config.write_attempts" href="#snippet.config.Config.write_attempts">write_attempts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="snippet.config.EnvironmentVariables" href="#snippet.config.EnvironmentVariables">EnvironmentVariables</a></code></h4>
+<ul class="">
+<li><code><a title="snippet.config.EnvironmentVariables.SNIPPET_CONFIG_PATH" href="#snippet.config.EnvironmentVariables.SNIPPET_CONFIG_PATH">SNIPPET_CONFIG_PATH</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

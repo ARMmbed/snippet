@@ -8,8 +8,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>snippet API documentation</title>
-<meta name="description" content="Snippet provides a way to extract code snippet so that they can be inserted in documentation." />
+<title>snippet.cli API documentation</title>
+<meta name="description" content="CLI definition." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,10 +21,10 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>snippet</code></h1>
+<h1 class="title">Module <code>snippet.cli</code></h1>
 </header>
 <section id="section-intro">
-<p>Snippet provides a way to extract code snippet so that they can be inserted in documentation.</p>
+<p>CLI definition.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -33,42 +33,103 @@
 # Copyright (C) 2020 Arm Mbed. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
-&#34;&#34;&#34;Snippet provides a way to extract code snippet so that they can be inserted in documentation.&#34;&#34;&#34;
-from snippet._version import __version__</code></pre>
+&#34;&#34;&#34;CLI definition.&#34;&#34;&#34;
+import argparse
+
+import os
+import sys
+import dotenv
+
+from mbed_tools_lib.logging import set_log_level, MbedToolsHandler
+
+from snippet import config
+from snippet.api import extract_code_snippets
+from snippet._internal.logs import LOGGER
+
+
+def main() -&gt; int:
+    &#34;&#34;&#34;Script CLI.&#34;&#34;&#34;
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#34;--config&#34;, type=str, action=&#34;append&#34;, help=&#34;paths (or globs) to config files&#34;)
+    parser.add_argument(
+        &#34;dir&#34;,
+        nargs=&#34;?&#34;,
+        default=os.getcwd(),
+        help=&#34;path to project root, used by any relative paths in loaded configs [cwd]&#34;,
+    )
+    parser.add_argument(
+        &#34;-v&#34;,
+        &#34;--verbose&#34;,
+        action=&#34;count&#34;,
+        default=0,
+        help=&#34;Set the verbosity level, enter multiple times to increase verbosity.&#34;,
+    )
+    parser.add_argument(
+        &#34;-t&#34;, &#34;--traceback&#34;, action=&#34;store_true&#34;, default=True, help=&#34;Show a traceback when an error is raised.&#34;
+    )
+    args = parser.parse_args()
+    set_log_level(args.verbose)
+    dotenv.load_dotenv(dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=False))
+    # Use the context manager to ensure tools exceptions (expected behaviour) are shown as messages to the user,
+    # but all other exceptions (unexpected behaviour) are shown as errors.
+    with MbedToolsHandler(LOGGER, args.traceback):
+        extract_code_snippets(config.get_config(config_paths=args.config, project_root=args.dir,))
+        return 0
+    return 1
+
+
+if __name__ == &#34;__main__&#34;:
+    sys.exit(main())</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="snippet.api" href="api.html">snippet.api</a></code></dt>
+<dt id="snippet.cli.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>) -> int</span>
+</code></dt>
 <dd>
-<section class="desc"><p>Code Snippet APIs.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.cli" href="cli.html">snippet.cli</a></code></dt>
-<dd>
-<section class="desc"><p>CLI definition.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.config" href="config.html">snippet.config</a></code></dt>
-<dd>
-<section class="desc"><p>Definition of the configuration of snippet.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.exceptions" href="exceptions.html">snippet.exceptions</a></code></dt>
-<dd>
-<section class="desc"><p>Snippet exceptions.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.snippet" href="snippet.html">snippet.snippet</a></code></dt>
-<dd>
-<section class="desc"><p>Text snippet extractor.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.workflow" href="workflow.html">snippet.workflow</a></code></dt>
-<dd>
-<section class="desc"><p>Definition of the full workflow.</p></section>
+<section class="desc"><p>Script CLI.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main() -&gt; int:
+    &#34;&#34;&#34;Script CLI.&#34;&#34;&#34;
+    parser = argparse.ArgumentParser()
+    parser.add_argument(&#34;--config&#34;, type=str, action=&#34;append&#34;, help=&#34;paths (or globs) to config files&#34;)
+    parser.add_argument(
+        &#34;dir&#34;,
+        nargs=&#34;?&#34;,
+        default=os.getcwd(),
+        help=&#34;path to project root, used by any relative paths in loaded configs [cwd]&#34;,
+    )
+    parser.add_argument(
+        &#34;-v&#34;,
+        &#34;--verbose&#34;,
+        action=&#34;count&#34;,
+        default=0,
+        help=&#34;Set the verbosity level, enter multiple times to increase verbosity.&#34;,
+    )
+    parser.add_argument(
+        &#34;-t&#34;, &#34;--traceback&#34;, action=&#34;store_true&#34;, default=True, help=&#34;Show a traceback when an error is raised.&#34;
+    )
+    args = parser.parse_args()
+    set_log_level(args.verbose)
+    dotenv.load_dotenv(dotenv.find_dotenv(usecwd=True, raise_error_if_not_found=False))
+    # Use the context manager to ensure tools exceptions (expected behaviour) are shown as messages to the user,
+    # but all other exceptions (unexpected behaviour) are shown as errors.
+    with MbedToolsHandler(LOGGER, args.traceback):
+        extract_code_snippets(config.get_config(config_paths=args.config, project_root=args.dir,))
+        return 0
+    return 1</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -79,14 +140,14 @@ from snippet._version import __version__</code></pre>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="snippet.api" href="api.html">snippet.api</a></code></li>
-<li><code><a title="snippet.cli" href="cli.html">snippet.cli</a></code></li>
-<li><code><a title="snippet.config" href="config.html">snippet.config</a></code></li>
-<li><code><a title="snippet.exceptions" href="exceptions.html">snippet.exceptions</a></code></li>
-<li><code><a title="snippet.snippet" href="snippet.html">snippet.snippet</a></code></li>
-<li><code><a title="snippet.workflow" href="workflow.html">snippet.workflow</a></code></li>
+<li><code><a title="snippet" href="index.html">snippet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="snippet.cli.main" href="#snippet.cli.main">main</a></code></li>
 </ul>
 </li>
 </ul>

@@ -8,8 +8,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>snippet API documentation</title>
-<meta name="description" content="Snippet provides a way to extract code snippet so that they can be inserted in documentation." />
+<title>snippet.workflow API documentation</title>
+<meta name="description" content="Definition of the full workflow." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -21,10 +21,10 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>snippet</code></h1>
+<h1 class="title">Module <code>snippet.workflow</code></h1>
 </header>
 <section id="section-intro">
-<p>Snippet provides a way to extract code snippet so that they can be inserted in documentation.</p>
+<p>Definition of the full workflow.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -33,42 +33,111 @@
 # Copyright (C) 2020 Arm Mbed. All rights reserved.
 # SPDX-License-Identifier: Apache-2.0
 #
-&#34;&#34;&#34;Snippet provides a way to extract code snippet so that they can be inserted in documentation.&#34;&#34;&#34;
-from snippet._version import __version__</code></pre>
+&#34;&#34;&#34;Definition of the full workflow.&#34;&#34;&#34;
+import textwrap
+from functools import partial
+from pathlib import Path
+from typing import Tuple, Any, List, Dict
+
+from snippet import exceptions
+from snippet._internal import file_wrangler
+from snippet._internal.logs import LOGGER
+from snippet._internal.util import ensure_list
+from snippet._internal.wrapper import wrap
+from snippet.config import Config
+from snippet.snippet import extract_snippets_from_text
+
+
+def run(config: Config) -&gt; Tuple[dict, list, list]:
+    &#34;&#34;&#34;Retrieves all the code snippets according to configuration.&#34;&#34;&#34;
+    failures: List[Any] = list()
+
+    _set_config(config)
+    examples, paths = _find_all_code_examples(config, failures)
+
+    _check_for_duplicates(examples)
+
+    for (path, line_num, example_name), code_lines in examples.items():
+        example_block = &#34;\n&#34;.join(code_lines)
+        LOGGER.info(&#34;example: %r&#34;, example_name)
+        LOGGER.debug(&#34;example code: %s&#34;, example_block)
+
+        wrap(config, failures, path, partial(file_wrangler.write_example, config, example_name, example_block))
+
+    return examples, paths, failures
+
+
+def _check_for_duplicates(examples: dict) -&gt; None:
+    unique_example_names: Dict[str, Any] = dict()
+    for (path, line_num, example_name), code_lines in examples.items():
+        existing = unique_example_names.get(example_name)
+        if existing:
+            raise exceptions.DuplicateName(&#34;Example with duplicate name %s %s matches %s&#34; % (path, line_num, existing))
+        else:
+            unique_example_names[example_name] = (path, line_num, example_name)
+
+
+def _set_config(config: Config) -&gt; None:
+    # validate and set IO directories that are relative to project root
+    config.input_glob = [
+        str(Path(config.project_root).joinpath(str(pattern)).absolute()) for pattern in ensure_list(config.input_glob)
+    ]
+    config.output_dir = str(Path(config.project_root).joinpath(config.output_dir).absolute())
+
+
+def _find_all_code_examples(config: Config, failures: List[Any]) -&gt; Tuple[dict, list]:
+    paths = file_wrangler.find_files(config)
+    LOGGER.debug(&#34;files to parse:\n%s&#34;, textwrap.indent(&#34;\n&#34;.join(paths), prefix=&#34;  &#34;))
+    examples = dict()
+
+    for path in paths:
+        # load the file
+        lines = wrap(config, failures, path, partial(file_wrangler.load_file_lines, path), [])
+
+        # extract snippets
+        new_examples = wrap(config, failures, path, partial(extract_snippets_from_text, config, lines, path), {})
+
+        # store the new examples for analysis
+        examples.update(new_examples)
+    return examples, paths</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="snippet.api" href="api.html">snippet.api</a></code></dt>
+<dt id="snippet.workflow.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>config: <a title="snippet.config.Config" href="config.html#snippet.config.Config">Config</a>) -> Tuple[dict, list, list]</span>
+</code></dt>
 <dd>
-<section class="desc"><p>Code Snippet APIs.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.cli" href="cli.html">snippet.cli</a></code></dt>
-<dd>
-<section class="desc"><p>CLI definition.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.config" href="config.html">snippet.config</a></code></dt>
-<dd>
-<section class="desc"><p>Definition of the configuration of snippet.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.exceptions" href="exceptions.html">snippet.exceptions</a></code></dt>
-<dd>
-<section class="desc"><p>Snippet exceptions.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.snippet" href="snippet.html">snippet.snippet</a></code></dt>
-<dd>
-<section class="desc"><p>Text snippet extractor.</p></section>
-</dd>
-<dt><code class="name"><a title="snippet.workflow" href="workflow.html">snippet.workflow</a></code></dt>
-<dd>
-<section class="desc"><p>Definition of the full workflow.</p></section>
+<section class="desc"><p>Retrieves all the code snippets according to configuration.</p></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(config: Config) -&gt; Tuple[dict, list, list]:
+    &#34;&#34;&#34;Retrieves all the code snippets according to configuration.&#34;&#34;&#34;
+    failures: List[Any] = list()
+
+    _set_config(config)
+    examples, paths = _find_all_code_examples(config, failures)
+
+    _check_for_duplicates(examples)
+
+    for (path, line_num, example_name), code_lines in examples.items():
+        example_block = &#34;\n&#34;.join(code_lines)
+        LOGGER.info(&#34;example: %r&#34;, example_name)
+        LOGGER.debug(&#34;example code: %s&#34;, example_block)
+
+        wrap(config, failures, path, partial(file_wrangler.write_example, config, example_name, example_block))
+
+    return examples, paths, failures</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -79,14 +148,14 @@ from snippet._version import __version__</code></pre>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="snippet.api" href="api.html">snippet.api</a></code></li>
-<li><code><a title="snippet.cli" href="cli.html">snippet.cli</a></code></li>
-<li><code><a title="snippet.config" href="config.html">snippet.config</a></code></li>
-<li><code><a title="snippet.exceptions" href="exceptions.html">snippet.exceptions</a></code></li>
-<li><code><a title="snippet.snippet" href="snippet.html">snippet.snippet</a></code></li>
-<li><code><a title="snippet.workflow" href="workflow.html">snippet.workflow</a></code></li>
+<li><code><a title="snippet" href="index.html">snippet</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="snippet.workflow.run" href="#snippet.workflow.run">run</a></code></li>
 </ul>
 </li>
 </ul>

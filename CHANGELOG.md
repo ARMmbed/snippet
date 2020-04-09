@@ -11,6 +11,27 @@ beta releases are not included in this history. For a full list of all releases,
 
 [//]: # (begin_release_notes)
 
+"2.0.0" (2020-04-09)
+====================
+
+Major changes
+-------------
+
+- Refactored thoroughly. (#20200409)
+
+
+Bugfixes
+--------
+
+- Remove unused `requirements.txt`. (#20200409)
+
+
+Misc
+----
+
+- #20200409
+
+
 1.1.0 (2018-11-07)
 ==================
 
