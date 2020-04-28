@@ -18,4 +18,4 @@ def extract_code_snippets(config: config.Config) -> None:
         LOGGER.error(
             "failures:\n%s", textwrap.indent("\n".join(f"{name}: {exc}" for name, exc in failures), prefix="  ")
         )
-        raise Exception(f"There were %s failures!" % len(failures))
+        raise Exception(f"There were {len(failures)} failures!")
