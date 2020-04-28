@@ -1,0 +1,6 @@
+Compliance, Name,Is a dependency?,URL,Licence,Details
+True,code-snippet,False,https://github.com/ARMmbed/snippet,Apache-2.0,Licence is compliant.
+True,mbed-tools-lib,True,https://github.com/ARMmbed/mbed-tools-lib,Apache-2.0,Licence is compliant.
+True,pystache,True,http://github.com/defunkt/pystache,MIT,Licence is compliant.
+True,python-dotenv,True,http://github.com/theskumar/python-dotenv,Unknown,Package's licence manually checked: BSD-3-Clause
+True,toml,True,https://github.com/uiri/toml,MIT,Licence is compliant.

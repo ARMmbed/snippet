@@ -1,0 +1,44 @@
+                                3rd party IP report for code-snippet
+
+                                         2020-04-28 15:43:18.809741
+
+# Summary:
+    Licence compliance: Compliant
+    Details: Project [code-snippet]'s licence is compliant: Apache-2.0.All its dependencies are also compliant licence-wise.
+
+# More details:
+
+- code-snippet:
+    [X] Compliant?
+    [] Dependency?
+    URL: https://github.com/ARMmbed/snippet
+    Licence: Apache-2.0
+    Licence compliance: Licence is compliant.
+
+- mbed-tools-lib:
+    [X] Compliant?
+    [X] Dependency?
+    URL: https://github.com/ARMmbed/mbed-tools-lib
+    Licence: Apache-2.0
+    Licence compliance: Licence is compliant.
+
+- pystache:
+    [X] Compliant?
+    [X] Dependency?
+    URL: http://github.com/defunkt/pystache
+    Licence: MIT
+    Licence compliance: Licence is compliant.
+
+- python-dotenv:
+    [X] Compliant?
+    [X] Dependency?
+    URL: http://github.com/theskumar/python-dotenv
+    Licence: Unknown
+    Licence compliance: Package's licence manually checked: BSD-3-Clause
+
+- toml:
+    [X] Compliant?
+    [X] Dependency?
+    URL: https://github.com/uiri/toml
+    Licence: MIT
+    Licence compliance: Licence is compliant.

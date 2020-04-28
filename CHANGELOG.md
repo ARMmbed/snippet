@@ -11,6 +11,22 @@ beta releases are not included in this history. For a full list of all releases,
 
 [//]: # (begin_release_notes)
 
+"2.0.1" (2020-04-28)
+====================
+
+Bugfixes
+--------
+
+- Checked 3rd-party licences. (#20200428)
+- Tested on Python 3.8. (#2020042801)
+
+
+Misc
+----
+
+- #20200428
+
+
 "2.0.0" (2020-04-09)
 ====================
 
