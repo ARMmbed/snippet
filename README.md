@@ -1,11 +1,13 @@
 # Snippet
 
-![Package](https://img.shields.io/badge/Package-code--snippet-lightgrey)
-[![Documentation](https://img.shields.io/badge/Documentation-GitHub_Pages-blue)](https://armmbed.github.io/snippet)
-[![PyPI](https://img.shields.io/pypi/v/code-snippet)](https://pypi.org/project/code-snippet/)
-[![PyPI - Status](https://img.shields.io/pypi/status/code-snippet)](https://pypi.org/project/code-snippet/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/code-snippet)](https://pypi.org/project/code-snippet/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/ARMmbed/code-snippet/blob/master/LICENSE)
+![Package](https://badgen.net/badge/Package/code-snippet/grey) 
+[![Documentation](https://badgen.net/badge/Documentation/GitHub%20Pages/blue?icon=github)](https://armmbed.github.io/snippet) 
+[![PyPI](https://badgen.net/pypi/v/code-snippet)](https://pypi.org/project/code-snippet/) 
+[![PyPI - Status](https://img.shields.io/pypi/status/code-snippet)](https://pypi.org/project/code-snippet/) 
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/code-snippet)](https://pypi.org/project/code-snippet/) 
+ 
+[![License](https://badgen.net/pypi/license/code-snippet)](https://github.com/ARMmbed/snippet/blob/master/LICENSE) 
+[![Compliance](https://badgen.net/badge/License%20Report/compliant/green?icon=libraries)](https://armmbed.github.io/snippet/third_party_IP_report.html) 
 
 [![Build Status](https://dev.azure.com/mbed-tools/code-snippet/_apis/build/status/Build%20and%20Release?branchName=master&stageName=CI%20Checkpoint)](https://dev.azure.com/mbed-tools/code-snippet/_build/latest?definitionId=15&branchName=master)
 [![Test Coverage](https://codecov.io/gh/ARMmbed/code-snippet/branch/master/graph/badge.svg)](https://codecov.io/gh/ARMmbed/snippet)

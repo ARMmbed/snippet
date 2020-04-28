@@ -18,6 +18,9 @@ DOCUMENTATION_PRODUCTION_OUTPUT_PATH = "docs"
 VERSION_FILE_PATH = "snippet/_version.py"
 CHANGELOG_FILE_PATH = "CHANGELOG.md"
 
+[ProjectConfig.PACKAGES_WITH_CHECKED_LICENCE]
+python-dotenv = "BSD-3-Clause"
+
 [AutoVersionConfig]
 CONFIG_NAME = "DEFAULT"
 PRERELEASE_TOKEN = "beta"

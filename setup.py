@@ -32,6 +32,7 @@ setup(
         "Programming Language :: Python :: 3 :: Only",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development :: Build Tools",
         "Topic :: Documentation",
         "Topic :: Software Development :: Documentation",
@@ -46,7 +47,7 @@ setup(
     name=PROJECT_SLUG,
     packages=[SOURCE_DIR],
     python_requires=">=3.6,<4",
-    url=f"https://github.com/ARMmbed/snippet",
+    url="https://github.com/ARMmbed/snippet",
     version=__version__,
     entry_points=dict(
         console_scripts=[
