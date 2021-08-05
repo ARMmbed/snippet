@@ -16,7 +16,7 @@ pytest = "*"
 pytest-cov = "*"
 wheel = "*"
 code-snippet = {editable = true, path = "."}
-mbed-tools-ci-scripts = "*"
+continuous-delivery-scripts = "*"
 pre-commit = "*"
 
 [pipenv]

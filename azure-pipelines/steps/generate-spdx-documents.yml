@@ -5,11 +5,11 @@ steps:
 
   - bash: |
       mkdir -p $(temp_spdx_reports_path)
-      generate-spdx --output-dir $(temp_spdx_reports_path)
+      cd-generate-spdx --output-dir $(temp_spdx_reports_path)
     displayName: 'Generate SPDX documents'
 
   - script: |
-      license-files
+      cd-license-files
     displayName: 'Add copyright/licence notice.'
 
   - publish: $(temp_spdx_reports_path)
