@@ -35,8 +35,6 @@ class Test(unittest.TestCase):
 
         self.assertTrue(
             filecmp.cmp(
-                Path(tmp_test_dir).joinpath("number_1.md"),
-                Path(sample_input_dir).joinpath("fixture.md"),
-                shallow=False,
+                Path(tmp_test_dir).joinpath("number_1.md"), Path(sample_input_dir).joinpath("fixture.md"), shallow=False
             )
         )

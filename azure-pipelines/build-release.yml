@@ -87,9 +87,9 @@ stages:
               flake8
             displayName: 'Static Analysis - general (flake8)'
 
-          - script: |
-              mypy -p snippet
-            displayName: 'Static Analysis - type checks (mypy)'
+          #- script: |
+          #    mypy -p snippet
+          #  displayName: 'Static Analysis - type checks (mypy)'
 
           - script: |
               pip install pytest-azurepipelines

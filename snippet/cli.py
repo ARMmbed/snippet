@@ -42,7 +42,7 @@ def main() -> int:
     # Use the context manager to ensure tools exceptions (expected behaviour) are shown as messages to the user,
     # but all other exceptions (unexpected behaviour) are shown as errors.
     with MbedToolsHandler(LOGGER, args.traceback):
-        extract_code_snippets(config.get_config(config_paths=args.config, project_root=args.dir,))
+        extract_code_snippets(config.get_config(config_paths=args.config, project_root=args.dir))
         return 0
     return 1
 
