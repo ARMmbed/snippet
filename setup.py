@@ -46,7 +46,6 @@ setup(
         "pystache==0.5.4 ",
         "mbed-tools-lib==1.2.0",
     ],
-    install_requires=["python-dotenv", "toml", "pystache", "mbed-tools-lib"],
     license="Apache 2.0",
     long_description_content_type="text/markdown",
     long_description=long_description,
