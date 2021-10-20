@@ -40,6 +40,12 @@ setup(
     description="Code snippet extraction for documentation",
     keywords="documentation-generator documentation-tool snippet-generator snippet project-management documentation",
     include_package_data=True,
+    install_requires=[
+        "toml==0.10.2",
+        "python-dotenv==0.19.1",
+        "pystache==0.5.4 ",
+        "mbed-tools-lib==1.2.0",
+    ],
     install_requires=["python-dotenv", "toml", "pystache", "mbed-tools-lib"],
     license="Apache 2.0",
     long_description_content_type="text/markdown",
