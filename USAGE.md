@@ -105,11 +105,12 @@ in syntax-aware renderers
 - `drop_lines` for removing entire lines containing these exact matches
 - `replacements` for globally replacing exact matches
 
-```python
+```toml
+[snippet]
 # IO
 project_root = '.'  # the project root used for relative IO paths (set by commandline)
 input_glob = 'tests/example/*.py'
-output_append = True  # if the output file exists, append to it
+output_append = true  # if the output file exists, append to it
 output_dir = '.'
 output_file_name_template = '{{name}}.md'  # a mustache template for the output file name
 write_attempts = 3  # number of retries when writing output files
@@ -119,10 +120,10 @@ language_name = 'python'
 comment_prefix = '# '
 comment_suffix = ''
 # a mustache template for each file (triple braces important for code literals, no escaping)
-output_template = '```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n'
+output_template = "```{{language_name}}\n{{comment_prefix}}example: {{{name}}}{{comment_suffix}}\n{{{code}}}\n```\n"
 
 # Logger
-log_level = logging.INFO
+log_level = 'INFO'
 
 # Code block indicators
 start_flag = 'an example'
@@ -136,7 +137,7 @@ uncloak_flag = 'uncloak'
 drop_lines = []  # drop lines containing these phrases
 replacements = {'self.': ''}  # straightforward replacements
 fail_on_contains = ['assert']  # fail if these strings are found in code blocks
-auto_dedent = True  # keep code left-aligned with the start flag
-fail_on_dedent = True  # fail if code is dedented before reaching the end flag
-stop_on_first_failure = False  # fail early
+auto_dedent = true  # keep code left-aligned with the start flag
+fail_on_dedent = true  # fail if code is dedented before reaching the end flag
+stop_on_first_failure = false  # fail early
 ```
